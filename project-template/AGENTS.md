@@ -26,11 +26,13 @@
 
 ## Alur Kerja Claude ↔ Codex (WAJIB, jangan diubah tanpa alasan kuat)
 
+0. **Baca [`STATUS.md`](STATUS.md) dulu di awal SETIAP sesi baru** — jangan minta user jelasin ulang, jangan baca transkrip lama utuh. Kalau ada yang ga jelas dari STATUS.md, baru tanya user atau buka transkrip yang dirujuk di situ.
 1. **Rencana dulu.** Claude susun rencana singkat (apa yang mau diubah, di mana, kenapa) sebelum nulis kode buat fitur yang ga sepele.
 2. **Codex review RENCANA, bukan hasil kode jadi.** Kirim rencana itu ke Codex buat kasih opini/second-check SEBELUM implementasi penuh dimulai. Codex dipanggil lagi setelah implementasi HANYA kalau ada keputusan besar yang berubah dari rencana awal — bukan buat tiap revisi kecil.
 3. **Ada ketergantungan luar yang belum tervalidasi?** (library pihak ketiga, API luar, asumsi soal browser/sistem lain) → wajib divalidasi kecil-kecilan dulu sebelum lanjut bangun fitur penuh.
 4. **Sebelum lapor "selesai"**, wajib ada bukti dicoba beneran (jalanin/klik/reproduksi manual) — bukan cuma "test pass". Lihat aturan global bagian 3.2.
 5. **Kalau macet >30-40 menit di masalah yang sama tanpa progress**, berhenti dan laporan ke user — jangan terus nyoba sendirian.
+6. **Sebelum sesi ditutup / sebelum konteks kepenuhan / setelah keputusan penting difinalin**, update [`STATUS.md`](STATUS.md) — ini yang bakal dibaca sesi berikutnya, bukan transkrip mentah.
 
 ## Batasan / Permission
 
