@@ -50,13 +50,27 @@ Dilarang bilang sesuatu "selesai"/"berhasil" hanya karena kode ga error atau tes
 Sebelum mulai, sebutin file/bagian apa aja yang bakal disentuh. Kalau selama kerja mau nyentuh hal di luar itu (termasuk bikin dokumen/prototype/eksplorasi yang ga diminta), **wajib laporan dan tunggu izin dulu** — jangan jalan duluan.
 > Kenapa: di ATS, 20 jam pertama abis buat prototype & dokumen blueprint yang ga diminta.
 
-### 3.4 — Jangan push/deploy/aksi permanen tanpa persetujuan eksplisit di momen itu.
-Persetujuan sebelumnya (approval kemarin, approval buat hal lain) ga otomatis berlaku buat aksi baru. Harus nanya ulang tiap kali mau melakukan aksi yang sulit dibalikin (git push, deploy, hapus data, ubah struktur database).
-> Kenapa: pernah kejadian push file duluan sebelum approval turun.
+### 3.4 — Commit & push, dipisah berdasar resiko.
+- **Dokumentasi** (HANDOFF_CONTEXT.md, CHANGELOG.md/PROGRESS.md, catatan progress) → boleh **commit DAN push otomatis** tanpa nanya, resikonya kecil.
+- **Kode aplikasi / migrasi database / deploy** → commit lokal boleh otomatis, tapi **push tetap wajib nanya persetujuan eksplisit di momen itu** — persetujuan sebelumnya (kemarin, buat hal lain) ga otomatis berlaku buat aksi baru. Aksi yang sulit dibalikin (deploy, hapus data, ubah struktur database) SELALU nanya, ga peduli jenis filenya.
+> Kenapa: pernah kejadian push kode/dokumen keputusan duluan sebelum approval turun (OKR: push `TIMELINE.md`). Tapi push dokumentasi/log ga punya resiko yang sama — jangan generalisir kehati-hatian yang harusnya cuma buat kode/aksi permanen.
 
 ### 3.5 — Batasi durasi/token per putaran kerja.
 Kalau 1 masalah udah dicoba-benerin berkali-kali tanpa progress jelas (indikasi: bolak-balik solusi yang sama, atau udah lewat ~30-40 menit tanpa hasil), **berhenti dan laporan balik ke user** — jangan terus nyoba sendiri sampai token habis.
 > Kenapa: insiden 88k token / 1 jam 33 menit tanpa 1 baris kode berubah (ATS) — bahkan Codex sendiri ngaku prompt-nya kegedean.
+
+### 3.6 — Kerja tanpa pengawasan (user lagi tidur/pergi) HANYA di dalam rencana yang udah disepakati.
+User boleh kasih izin lanjut kerja tanpa nunggu respon ("aku mau tidur, lanjutin"), TAPI izin ini **ga berarti bebas ngambil keputusan baru**:
+- Cuma boleh ngerjain langkah-langkah yang UDAH ada di rencana yang disetujui sebelumnya (rule 3.1). Ketemu keputusan baru yang belum dibahas → berhenti, catet di HANDOFF_CONTEXT.md, jangan nebak sendiri.
+- Tetap kena batas rule 3.5 (macet → stop) dan rule 3.4 (push kode tetap nunggu approval, walau user lagi ga ada — antri sampai user balik).
+- Fitur beresiko tinggi (approval/otorisasi, auth, pembayaran, migrasi data produksi) TETAP ga boleh dikerjain tanpa pengawasan langsung, apapun izinnya.
+- **Wajib update HANDOFF_CONTEXT.md tiap kali nyampe 1 checkpoint** (bukan nunggu sesi berakhir) — biar kalau harus berhenti di tengah, progress-nya ketauan, bukan cuma di akhir.
+
+### 3.7 — Progress yang lagi jalan harus ada yang bisa DICEK, bukan cuma diomongin.
+Selama kerja jalan (apalagi mode 3.6/tanpa pengawasan), tiap ada progress berarti kasih sesuatu yang bisa diverifikasi user pas balik — bukan cuma "lagi ngerjain X". Contoh: link preview yang bisa dibuka, screenshot, atau baris di HANDOFF_CONTEXT.md yang nyebut checkpoint mana yang udah lolos dites.
+
+### 3.8 — Update changelog/logbook yang UDAH ADA, jangan bikin baru.
+Kalau project udah punya file changelog/progress log (CHANGELOG.md, PROGRESS.md, DECISIONS.md, dll), tiap ada perubahan berarti **update file itu**, jangan bikin file baru yang isinya tumpang tindih. Kalau project belum punya sama sekali, baru bikin 1x — dan itu jadi satu-satunya yang diupdate seterusnya.
 
 ## 4. Aturan Ini Berlaku Juga Buat Codex (dan sebaliknya)
 
