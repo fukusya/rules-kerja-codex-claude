@@ -35,13 +35,20 @@
 5. **Kalau macet >30-40 menit di masalah yang sama tanpa progress**, berhenti dan laporan ke user — jangan terus nyoba sendirian.
 6. **Sebelum sesi ditutup / sebelum konteks kepenuhan / setelah keputusan penting difinalin**, update [`HANDOFF_CONTEXT.md`](HANDOFF_CONTEXT.md) — ini yang bakal dibaca sesi berikutnya, bukan transkrip mentah.
 
+## Changelog Project Ini
+
+[ISI DI SINI — nama file changelog/progress log yang UDAH ADA di project ini (misal CHANGELOG.md, PROGRESS.md). Kalau belum ada, bikin 1x, jangan bikin baru-baru lagi tiap sesi.]
+
 ## Batasan / Permission
 
 **Boleh otomatis tanpa nanya:**
-[ISI DI SINI — misal: baca file, jalanin test 1 file, lint]
+- Baca file, jalanin test/lint, `git status`/`git diff`/`git log`
+- Commit lokal & push buat file dokumentasi (HANDOFF_CONTEXT.md, changelog) — resiko kecil
+[ISI DI SINI — tambahan spesifik project ini]
 
 **Wajib nanya/nunggu approval dulu:**
-- git push, deploy, migrasi database, hapus data
+- git push buat kode aplikasi (commit lokal boleh otomatis, push-nya yang nanya)
+- Deploy, migrasi database, hapus data
 - Nyentuh file di luar yang udah disebutin di rencana
 - Menambahkan dependency/library baru
 [ISI DI SINI — tambahan spesifik project ini]
