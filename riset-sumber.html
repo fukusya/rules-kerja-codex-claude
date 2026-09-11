@@ -1,0 +1,649 @@
+<title>Dossier Riset Claude</title>
+<meta name="description" content="Kompilasi lengkap 27 sumber tentang cara mengatur aturan kerja Claude/Codex, dijelaskan buat pemula non-teknis.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root{
+  --bg:#EFEDE6;
+  --surface:#FBFAF6;
+  --surface-2:#F2F0E8;
+  --ink:#201F1B;
+  --ink-soft:#5B584E;
+  --ink-faint:#8A8677;
+  --line:#D8D4C6;
+  --accent:#1E6E68;
+  --accent-soft:#DCEAE7;
+  --accent-ink:#F4FBF9;
+  --tip:#38427A;
+  --tip-soft:#E2E4F2;
+  --warn:#9C3B23;
+  --warn-soft:#F3E0D8;
+  --gold:#8A6D1B;
+  --shadow: 0 1px 2px rgba(32,31,27,.06), 0 8px 24px -12px rgba(32,31,27,.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#17181A;
+    --surface:#1F2123;
+    --surface-2:#232527;
+    --ink:#EDEBE3;
+    --ink-soft:#B4B0A2;
+    --ink-faint:#7C7A70;
+    --line:#34373A;
+    --accent:#57C9BC;
+    --accent-soft:#1E3230;
+    --accent-ink:#0D1614;
+    --tip:#9BA6F5;
+    --tip-soft:#242847;
+    --warn:#E58164;
+    --warn-soft:#3A2620;
+    --gold:#D9B84A;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 28px -14px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#17181A;
+  --surface:#1F2123;
+  --surface-2:#232527;
+  --ink:#EDEBE3;
+  --ink-soft:#B4B0A2;
+  --ink-faint:#7C7A70;
+  --line:#34373A;
+  --accent:#57C9BC;
+  --accent-soft:#1E3230;
+  --accent-ink:#0D1614;
+  --tip:#9BA6F5;
+  --tip-soft:#242847;
+  --warn:#E58164;
+  --warn-soft:#3A2620;
+  --gold:#D9B84A;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 28px -14px rgba(0,0,0,.6);
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:'Public Sans',system-ui,sans-serif;
+  font-size:16px; line-height:1.6;
+}
+h1,h2,h3{ font-family:'Fraunces',Georgia,serif; text-wrap:balance; color:var(--ink); margin:0; }
+a{ color:var(--accent); }
+.mono{ font-family:'IBM Plex Mono',ui-monospace,monospace; }
+
+.wrap{ max-width:1180px; margin:0 auto; padding:0 20px 100px; }
+
+/* HEADER */
+header.hero{
+  padding:56px 20px 40px; border-bottom:1px solid var(--line);
+  background:
+    linear-gradient(var(--surface-2),var(--surface-2));
+}
+header.hero .inner{ max-width:820px; margin:0 auto; }
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--accent); display:flex; align-items:center; gap:10px; margin-bottom:14px;
+}
+.eyebrow::before{ content:""; width:22px; height:1px; background:var(--accent); display:inline-block; }
+h1.title{ font-size:clamp(30px,4.4vw,44px); font-weight:600; line-height:1.12; }
+.dek{ margin-top:16px; font-size:17px; color:var(--ink-soft); max-width:62ch; }
+.stat-row{ display:flex; gap:28px; margin-top:26px; flex-wrap:wrap; }
+.stat{ display:flex; flex-direction:column; }
+.stat b{ font-family:'Fraunces',serif; font-size:26px; font-weight:600; }
+.stat span{ font-size:12.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.06em; margin-top:2px; }
+
+/* LAYOUT */
+.layout{ display:grid; grid-template-columns:220px 1fr; gap:48px; margin-top:44px; align-items:start; }
+@media (max-width:880px){ .layout{ grid-template-columns:1fr; } }
+
+nav.toc{ position:sticky; top:20px; font-size:13.5px; }
+nav.toc a{ display:block; padding:6px 0; color:var(--ink-soft); text-decoration:none; border-left:2px solid transparent; padding-left:12px; }
+nav.toc a:hover{ color:var(--accent); border-left-color:var(--accent); }
+nav.toc .toc-h{ font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-faint); font-size:11px; margin:18px 0 4px; padding-left:12px; }
+nav.toc .toc-h:first-child{ margin-top:0; }
+
+main{ min-width:0; }
+
+section.block{ margin-bottom:64px; scroll-margin-top:20px; }
+.block-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:6px; }
+.block-num{ font-family:'IBM Plex Mono',monospace; color:var(--accent); font-size:14px; font-weight:500; }
+h2.block-title{ font-size:clamp(22px,2.6vw,28px); font-weight:600; }
+.block-desc{ color:var(--ink-soft); max-width:68ch; margin:10px 0 26px; font-size:15px; }
+
+/* SOURCE CARD */
+.grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; }
+.card{
+  background:var(--surface); border:1px solid var(--line); border-radius:10px;
+  padding:20px 20px 18px; box-shadow:var(--shadow);
+}
+.card-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:10px; }
+.card h3{ font-size:16.5px; font-weight:600; line-height:1.3; }
+.card h3 a{ color:var(--ink); text-decoration:none; }
+.card h3 a:hover{ color:var(--accent); }
+.handle{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-faint); margin-top:3px; display:block; }
+.badge{
+  font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.04em; text-transform:uppercase;
+  padding:3px 8px; border-radius:99px; white-space:nowrap; flex-shrink:0;
+}
+.badge.official{ background:var(--accent-soft); color:var(--accent); }
+.badge.tip{ background:var(--tip-soft); color:var(--tip); }
+.badge.warn{ background:var(--warn-soft); color:var(--warn); }
+.card ul{ margin:0; padding-left:18px; }
+.card li{ margin-bottom:7px; font-size:14.5px; color:var(--ink-soft); }
+.card li b{ color:var(--ink); font-weight:600; }
+.card li:last-child{ margin-bottom:0; }
+.card .link-line{ margin-top:12px; font-size:12.5px; }
+.card .link-line a{ text-decoration:none; }
+.card .link-line a:hover{ text-decoration:underline; }
+
+/* FEATURED WALKTHROUGH (Charlie Hills) */
+.featured{
+  background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:30px 32px; box-shadow:var(--shadow);
+}
+.featured-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; border-bottom:1px solid var(--line); padding-bottom:18px; margin-bottom:22px;}
+.featured-head h3{ font-size:20px; }
+.featured-head .handle{ margin-top:4px; }
+.steps{ display:flex; flex-direction:column; gap:0; }
+.step{ display:grid; grid-template-columns:40px 1fr; gap:16px; padding:18px 0; border-bottom:1px dashed var(--line); }
+.step:last-child{ border-bottom:none; padding-bottom:0; }
+.step:first-child{ padding-top:0; }
+.step-num{
+  font-family:'Fraunces',serif; font-weight:600; font-size:18px; color:var(--accent);
+  width:36px; height:36px; border-radius:50%; border:1.5px solid var(--accent-soft);
+  display:flex; align-items:center; justify-content:center;
+}
+.step h4{ font-family:'Public Sans',sans-serif; font-weight:700; font-size:15.5px; margin:0 0 6px; }
+.step p{ margin:0; font-size:14.5px; color:var(--ink-soft); }
+.step p + p{ margin-top:8px; }
+.step .quote{
+  margin-top:10px; padding:10px 14px; background:var(--surface-2); border-left:3px solid var(--gold);
+  font-size:13.5px; font-style:italic; color:var(--ink-soft); border-radius:0 6px 6px 0;
+}
+
+/* RULE LIST (12 rules) */
+.rule-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:14px; }
+.rule{ background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:16px 18px; box-shadow:var(--shadow); }
+.rule .rn{ font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--accent); }
+.rule h4{ font-family:'Public Sans',sans-serif; font-weight:700; font-size:14.5px; margin:4px 0 6px; }
+.rule p{ margin:0; font-size:13.5px; color:var(--ink-soft); }
+.rule.added .rn{ color:var(--tip); }
+
+/* GLOSSARY */
+.gloss{ display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:14px; }
+.gloss .g{ padding:14px 16px; background:var(--surface); border:1px solid var(--line); border-radius:10px; }
+.gloss dt{ font-family:'IBM Plex Mono',monospace; font-weight:500; color:var(--accent); font-size:13.5px; }
+.gloss dd{ margin:6px 0 0; font-size:13.5px; color:var(--ink-soft); }
+
+/* CALLOUT */
+.callout{ background:var(--accent-soft); border:1px solid var(--accent); border-radius:10px; padding:18px 20px; margin-top:8px; }
+.callout p{ margin:0; font-size:14.5px; color:var(--ink); }
+.callout.warn{ background:var(--warn-soft); border-color:var(--warn); }
+
+/* legend */
+.legend{ display:flex; gap:16px; flex-wrap:wrap; margin-bottom:22px; }
+.legend span{ display:flex; align-items:center; gap:6px; font-size:12.5px; color:var(--ink-soft); }
+.dot{ width:9px; height:9px; border-radius:50%; display:inline-block; }
+.dot.official{ background:var(--accent); }
+.dot.tip{ background:var(--tip); }
+.dot.warn{ background:var(--warn); }
+
+footer{ margin-top:70px; padding-top:26px; border-top:1px solid var(--line); color:var(--ink-faint); font-size:13px; }
+</style>
+
+<header class="hero">
+  <div class="inner">
+    <div class="eyebrow">Dossier riset — HireDesk ATS</div>
+    <h1 class="title">Cara Ngatur Aturan Kerja Claude &amp; Codex</h1>
+    <p class="dek">Kompilasi dari 27 sumber (thread X, repo GitHub, artikel, dokumentasi resmi Anthropic) soal cara bikin CLAUDE.md / AGENTS.md yang beneran efektif. Ditulis ulang dalam bahasa non-teknis — anggap kamu belum pernah pegang kode sama sekali.</p>
+    <div class="stat-row">
+      <div class="stat"><b>27</b><span>Sumber dianalisis</span></div>
+      <div class="stat"><b>8</b><span>Bagian topik</span></div>
+      <div class="stat"><b>1</b><span>Sumber perlu hati-hati</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+<div class="layout">
+
+<nav class="toc">
+  <div class="toc-h">Mulai dari sini</div>
+  <a href="#dasar">A. Istilah Dasar</a>
+  <a href="#charlie">B. Panduan 10 Menit (lengkap)</a>
+  <div class="toc-h">Aturan &amp; Struktur</div>
+  <a href="#12rules">C. 12 Aturan Teruji</a>
+  <a href="#folder">D. Sistem Folder "Otak"</a>
+  <a href="#struktur">E. Struktur &amp; Tips Lain</a>
+  <div class="toc-h">Tools Siap Pakai</div>
+  <a href="#tools">F. Repo &amp; Aplikasi</a>
+  <div class="toc-h">Lanjutan</div>
+  <a href="#advanced">G. Level Lanjutan</a>
+  <a href="#hati2">H. Perlu Hati-hati</a>
+  <a href="#glossary">Daftar Istilah</a>
+</nav>
+
+<main>
+
+<section class="block" id="dasar">
+  <div class="block-head"><span class="block-num">A</span><h2 class="block-title">Istilah Dasar Dulu</h2></div>
+  <p class="block-desc">Sebelum masuk ke aturan-aturan, ini konsep yang muncul di HAMPIR SEMUA sumber. Kalau paham ini, sisanya jauh lebih gampang dicerna.</p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-top">
+        <div><h3><a href="https://x.com/rubenhassid/status/2045713046065283435" target="_blank">Claude For Dummies</a></h3><span class="handle">@rubenhassid</span></div>
+        <span class="badge tip">Panduan pemula</span>
+      </div>
+      <ul>
+        <li><b>Token</b> = satuan "potongan kata" yang dipakai Claude buat baca &amp; nulis. 1 halaman teks ≈ 500 token. Ini dasar hitungan biaya &amp; batas pemakaian.</li>
+        <li><b>Context window</b> = "meja kerja" sementara Claude selama 1 percakapan. Makin penuh, makin gampang lupa hal di awal — makanya chat kepanjangan bikin Claude "ngaco". Solusinya: buka chat baru.</li>
+        <li><b>Sycophancy</b> = sifat Claude dilatih buat nurut &amp; setuju sama kamu. Kalau kamu bilang sesuatu yang salah, dia bisa aja ikut manggut-manggut. <i>Ini akar dari "Claude jangan terus setuju" yang kamu minta.</i></li>
+        <li><b>3 wujud Claude:</b> Chat (ngobrol doang) → Desktop app (bisa baca file komputer) → Cowork (kerja sendiri berjam-jam, bikin dokumen langsung).</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <div><h3><a href="https://x.com/akshay_pachaar/status/2035341800739877091" target="_blank">Anatomi folder .claude/</a></h3><span class="handle">@akshay_pachaar</span></div>
+        <span class="badge tip">Teknis, disederhanakan</span>
+      </div>
+      <ul>
+        <li>Ada <b>2 folder</b> pengaturan: satu di komputer kamu secara umum (berlaku ke semua proyek), satu lagi di dalam 1 proyek spesifik (cuma berlaku di situ).</li>
+        <li><b>CLAUDE.md</b> = file aturan utama, dibaca Claude paling pertama tiap mulai sesi kerja.</li>
+        <li><b>CLAUDE.local.md</b> = aturan personal kamu doang, ga ke-share ke tim/orang lain.</li>
+        <li><b>Hooks</b> = script yang <i>maksa</i> — beda sama aturan tertulis yang cuma "saran". Dijelasin detail di Bagian G.</li>
+        <li>Aturan tertulis di CLAUDE.md itu <b>cuma disaranin</b>, bukan dipaksa — Claude bisa aja ga ngikutin 100%.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="gloss" id="glossary" style="margin-top:16px;">
+    <div class="g"><dt>CLAUDE.md</dt><dd>File teks berisi aturan kerja, khusus dibaca sama Claude Code. Taruh di folder utama proyek.</dd></div>
+    <div class="g"><dt>AGENTS.md</dt><dd>Sama fungsinya kayak CLAUDE.md, tapi formatnya "universal" — dibaca Claude, Codex, Cursor, dan AI coding tool lain sekaligus.</dd></div>
+    <div class="g"><dt>Prompt</dt><dd>Pertanyaan/perintah yang kamu ketik ke AI.</dd></div>
+    <div class="g"><dt>Hook</dt><dd>Script otomatis yang jalan sendiri di momen tertentu (misal: sebelum nyimpen file) — AI ga bisa nolak/ngabaikan.</dd></div>
+    <div class="g"><dt>Repo / repository</dt><dd>"Folder proyek" yang disimpan di GitHub, biasanya berisi kode + dokumentasi.</dd></div>
+    <div class="g"><dt>Skill</dt><dd>Paket instruksi siap pakai buat 1 tugas spesifik, dipanggil otomatis atau lewat perintah singkat (misal <span class="mono">/negosiasi</span>).</dd></div>
+  </div>
+</section>
+
+<section class="block" id="charlie">
+  <div class="block-head"><span class="block-num">B</span><h2 class="block-title">Panduan 10 Menit — Charlie Hills (lengkap, poin demi poin)</h2></div>
+  <p class="block-desc">Ini thread yang kamu minta dijelasin detail. Charlie Hills marketer (bukan developer!) yang belajar Claude Code dari nol selama 173 hari sampai jalanin 100% bisnis kontennya. Ini seluruh isi panduannya, #1 sampai #9.5.</p>
+
+  <div class="featured">
+    <div class="featured-head">
+      <div><h3>Give me 10 minutes. I'll teach you 80% of Claude Code.</h3><span class="handle">@charliejhills — 23 Aug 2026</span></div>
+      <span class="badge tip">Pemula → mahir</span>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h4>Nyalain Claude Code (±2 menit)</h4>
+          <p>Langganan Claude Pro ($20/bulan cukup buat mulai). Install lewat 1 command di <span class="mono">code.claude.com/docs</span>. Buka lewat terminal atau app desktop (kalau baru pertama kali, mulai dari app desktop, lebih gampang).</p>
+          <p>Bikin file <b>CLAUDE.md</b> — ini "latar belakang" kamu: siapa kamu, suka apa, mau Claude kerja gimana. Tapi Charlie saranin: <b>jangan langsung nulis dari nol</b>. Lebih baik ngobrol dulu secara natural sama Claude, baru minta dia yang nulisin/update file itu belakangan — soalnya di awal kamu belum tau mana yang penting buat dicatet.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">1.5</div>
+        <div>
+          <h4>Buka menu <span class="mono">/config</span></h4>
+          <p>Itu tempat semua pengaturan Claude Code (~40 opsi). Charlie sendiri baru buka ini di hari ke-173 — poinnya: selalu ada hal baru buat dipelajarin, ga usah stres harus tau semua dari awal.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h4>Rencana dulu sebelum eksekusi</h4>
+          <p>Ketik <span class="mono">/plan</span> (atau tekan shift+tab) — Claude bakal nyusun rencana dulu, nanya apa yang mau kamu ubah, baru mulai kerja. Mode ini <b>read-only</b> (ga ngubah apa-apa dulu) dan jauh lebih murah dibanding harus benerin hasil yang salah arah.</p>
+          <div class="quote">"Plan mode is read-only, and it is far cheaper than rebuilding. A failed build costs more than ten minutes of planning ever will."</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2.5</div>
+        <div>
+          <h4>Auto mode</h4>
+          <p>Dulu Claude nanya izin tiap mau ngapa-ngapain (annoying). Sekarang "auto mode" udah jadi default — tetap aman karena tiap aksi tetap dicek sebelum dijalanin, ga asal nurut ke izin yang udah kamu kasih sebelumnya.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h4>Install skill/plugin siap pakai (bagian yang kamu tanya)</h4>
+          <p>Charlie nyesel baru sadar ini di bulan pertama — dia sempet bikin ulang tools yang sebenernya udah ada gratis. Ketik perintah buka marketplace (toko skill), lalu install yang relevan. 5 yang dia pakai:</p>
+          <ul style="margin:10px 0 0; padding-left:18px;">
+            <li style="margin-bottom:8px;"><b>Superpowers</b> — buat brainstorming ide (dia sendiri jarang pake).</li>
+            <li style="margin-bottom:8px;"><b>gstack (agent browser)</b> — buka browser asli, baca isi web yang lagi live hari ini (bukan data lama). Bisa masuk ke Gmail/Google Docs/Notion pake login Chrome kamu yang udah ada, tanpa setup koneksi ribet.</li>
+            <li style="margin-bottom:8px;"><b>HyperFrames</b> — nulis kode HTML terus diubah jadi video (mp4). Dia pake buat bikin overlay video YouTube — tinggal deskripsiin overlay-nya, keluar jadi video jadi.</li>
+            <li style="margin-bottom:8px;"><b>Claude HUD</b> — nampilin di pojok layar: lagi ngapain Claude sekarang, dan udah abis berapa (token/biaya) — biar ga kaget tiba-tiba limit abis.</li>
+            <li><b>Caveman</b> — bikin jawaban Claude singkat banget, ga ada basa-basi pembuka/penutup. Mirip konsep <a href="#tools">i-have-adhd</a> di Bagian F.</li>
+          </ul>
+          <p style="margin-top:10px;">Poin pentingnya: <b>skill yang kamu perlu itu beda-beda tergantung kerjaan kamu</b> — 5 di atas itu buat kebutuhan Charlie (konten/marketing), belum tentu semua relevan buat HR/ATS.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h4>Sambungin tools lain (connectors)</h4>
+          <p>Semua koneksi (Gmail, Google Calendar, dll) yang udah kamu setup di claude.ai otomatis kebawa ke Claude Code, ga usah setup ulang. Tinggal aktifin yang beneran kepake tiap hari — biar Claude bisa baca &amp; kerja langsung di app itu, ga perlu copy-paste manual.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">5</div>
+        <div>
+          <h4>Isi CLAUDE.md yang bener (baru sekarang, bukan di awal)</h4>
+          <p>CLAUDE.md itu <b>"meja resepsionis", bukan lemari arsip</b> — isinya cuma aturan inti (gaya bicara, format output), <b>bukan tempat numpuk semua koreksi</b>. Kesalahan Charlie di awal: dia nganggep semua koreksi itu berlaku selamanya/global, padahal hampir ga ada yang beneran global.</p>
+          <p>Ada 2 level: <b>Global</b> (berlaku semua proyek) vs <b>Local</b> (cuma 1 proyek). Pisahin tegas — kalau dicampur, file global-nya jadi "tempat sampah" isinya numpuk ga karuan.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">6</div>
+        <div>
+          <h4>Bikin folder per-topik, pelan-pelan</h4>
+          <p>Charlie punya 1 folder per platform media sosial (LinkedIn, YouTube, dst) — tapi dibikin bertahap selama 3 bulan, <b>bukan langsung semua di hari pertama</b>. Baru bikin folder baru kalau topiknya emang udah "sibuk" dan butuh aturan sendiri.</p>
+          <div class="quote">"The restraint is the useful half. Do not open the second folder until the first one is genuinely busy enough to need its own rules."</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">7</div>
+        <div>
+          <h4>Memory (ingatan otomatis)</h4>
+          <p>Kalau fitur memory belum nyala, ini perbaikan paling gampang. Ketik <span class="mono">/memory</span> buat nyalain — Claude bakal <b>otomatis nyatet</b> hal yang dia pelajarin sambil kerja (command yang ketemu, pola yang diperhatiin), lintas sesi, tanpa kamu minta. Kamu tinggal ngarahin, bukan nulis manual semua.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">8</div>
+        <div>
+          <h4>Skills — ubah kerjaan berulang jadi 1 perintah pendek</h4>
+          <p>Aturannya sederhana: <b>kalau kamu udah ngetik hal yang sama 2x, jadiin skill.</b> Caranya: ngobrol sama Claude sampe hasilnya pas, terus minta "simpen ini jadi skill". Pilih kata pemicu (trigger word) yang <b>unik</b> — kalau kata pemicunya terlalu umum, dia bisa "nyala" di tengah kerjaan lain yang ga nyambung, malah bikin runyam.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">9</div>
+        <div>
+          <h4>Jangan bikin 1 skill isinya banyak hal (skill raksasa)</h4>
+          <p>Kalau 1 skill isinya kepanjangan, Claude <b>ga bakal baca semuanya</b> tiap dipanggil. Charlie punya 214 skill di komputernya, tapi cuma <b>72 yang pernah beneran kepake</b> — 142 sisanya ga pernah jalan sama sekali. Idealnya: skill itu "spesialis" 1 tugas, bukan "ensiklopedia" isinya macem-macem.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">9.5</div>
+        <div>
+          <h4>Bikin hook — biar ga cuma jadi "permintaan"</h4>
+          <p><b>Aturan tertulis di CLAUDE.md itu cuma permintaan</b> — Claude baca, dipertimbangin, biasanya (tapi ga selalu) dituruti. <b>Hook itu beda</b>: script yang jalan otomatis, Claude ga punya pilihan buat nolak.</p>
+          <p>Cara ngetesnya: <i>"kalau ini keabaikan sekali aja, aku bakal kesel ga?"</i> — kalau jawabannya "iya", berarti itu seharusnya jadi hook, bukan cuma kalimat di file aturan.</p>
+          <div class="quote">"Rule of thumb: CLAUDE.md guides. A hook forces."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="12rules">
+  <div class="block-head"><span class="block-num">C</span><h2 class="block-title">12 Aturan yang Sudah Diuji Datanya</h2></div>
+  <p class="block-desc">Ini paling penting karena ADA ANGKANYA, bukan cuma opini. Andrej Karpathy (peneliti AI terkenal) komplain soal 3 pola kesalahan Claude → 4 aturan dibikin, lalu <a href="https://x.com/Mnilax/status/2053116311132155938" target="_blank">diuji @Mnilax di 30 project selama 6 minggu</a>, ditambah 8 aturan lagi. Hasil: <b>tingkat kesalahan turun dari 41% jadi 3%</b>.</p>
+
+  <div class="rule-grid">
+    <div class="rule"><span class="rn">01 · INTI</span><h4>Mikir Dulu</h4><p>Jangan asumsi diem-diem. Kalau ga jelas, harus nanya balik ke kamu, bukan nebak sendiri.</p></div>
+    <div class="rule"><span class="rn">02 · INTI</span><h4>Simpel Duluan</h4><p>Solusi paling minim yang nyelesain masalah. Ga usah ditambahin fitur yang ga diminta.</p></div>
+    <div class="rule"><span class="rn">03 · INTI</span><h4>Ubah yang Perlu Aja</h4><p>Sentuh cuma bagian yang emang diminta. Jangan sok "beresin" bagian lain sambil lewat.</p></div>
+    <div class="rule"><span class="rn">04 · INTI</span><h4>Kasih Target, Bukan Langkah</h4><p>Bilang "harus kayak apa hasil akhirnya", biar Claude sendiri yang cari cara — dan bisa ngecek sendiri udah bener apa belum.</p></div>
+    <div class="rule added"><span class="rn">05 · TAMBAHAN</span><h4>Jangan Suruh AI Nebak yang Harusnya Pasti</h4><p>Hal yang harusnya "aturan tetap" (misal: kapan harus ulang proses) jangan diserahin ke tebakan AI — bikin aturan jelas di kode/prosesnya.</p></div>
+    <div class="rule added"><span class="rn">06 · TAMBAHAN</span><h4>Batas Waktu/Usaha yang Jelas</h4><p>Kasih batas biar AI ga muter-muter lama nyoba hal yang sama berulang-ulang tanpa nyadar.</p></div>
+    <div class="rule added"><span class="rn">07 · TAMBAHAN</span><h4>Kalau Ada 2 Pola Beda, Tanya — Jangan Gabung</h4><p>Kalau nemu 2 cara berbeda buat hal sama, AI harus nanya mana yang dipilih, bukan asal gabungin dua-duanya jadi satu (malah bikin bingung).</p></div>
+    <div class="rule added"><span class="rn">08 · TAMBAHAN</span><h4>Baca Dulu, Baru Bikin Baru</h4><p>Cek dulu apa udah ada yang serupa sebelum bikin hal baru — biar ga dobel/nubruk sama yang udah ada.</p></div>
+    <div class="rule added"><span class="rn">09 · TAMBAHAN</span><h4>Tes yang Beneran Ngecek, Bukan Formalitas</h4><p>"Berhasil dites" doang ga cukup — testnya harus beneran ngecek hasil yang BENAR, bukan cuma "ga error".</p></div>
+    <div class="rule added"><span class="rn">10 · TAMBAHAN</span><h4>Ada Titik Aman buat Kerjaan Panjang</h4><p>Kerjaan multi-langkah butuh "titik simpan" — biar kalau salah di tengah jalan, ga keterusan makin jauh dari jalur bener.</p></div>
+    <div class="rule added"><span class="rn">11 · TAMBAHAN</span><h4>Ikutin Pola yang Udah Ada</h4><p>Jangan bikin pola/gaya baru sendiri kalau udah ada pola yang biasa dipakai — walau menurut AI polanya "lebih bagus".</p></div>
+    <div class="rule added"><span class="rn">12 · TAMBAHAN</span><h4>Kalau Gagal, Harus Kelihatan</h4><p>Jangan sampai ada yang "diam-diam di-skip" tapi dilaporin sebagai berhasil. Kesalahan paling mahal itu yang KELIHATAN kayak sukses.</p></div>
+  </div>
+
+  <div class="callout" style="margin-top:20px;">
+    <p><b>Temuan penting dari eksperimennya:</b> di atas 200 baris aturan, kepatuhan AI anjlok (dari 76% jadi 52% pas dicoba sampe 18 aturan). Kalimat kayak "hati-hati" atau "pikirkan baik-baik" itu <b>nyaris ga ada efeknya</b> (cuma ~30% dipatuhi) karena ga bisa "dites" benar-salahnya — ganti jadi perintah konkret. Saran akhirnya: <b>pilih 6 aturan yang paling relevan sama kesalahan yang beneran kamu alami</b>, jangan asal comot semua 12.</p>
+  </div>
+</section>
+
+<section class="block" id="folder">
+  <div class="block-head"><span class="block-num">D</span><h2 class="block-title">Sistem "Folder Otak Claude" (pola paling sering diulang)</h2></div>
+  <p class="block-desc">Ruben Hassid nulis pola yang SAMA di banyak thread berbeda — tandanya ini metode yang emang kepake beneran, bukan sekali coba doang. Aku kelompokin per-thread biar jelas beda angle-nya masing-masing.</p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-top"><div><h3><a href="https://x.com/rubenhassid/status/2042558212990292013" target="_blank">8 File yang Dipakai "Top 1%"</a></h3><span class="handle">@rubenhassid</span></div><span class="badge tip">Konsep</span></div>
+      <ul>
+        <li><b>about-me.md</b> — identitas, pekerjaan, prioritas kamu.</li>
+        <li><b>voice-profile.md</b> — gaya bicara/nulis kamu, dari wawancara 100 pertanyaan ke Claude.</li>
+        <li><b>anti-ai-writing-style.md</b> — kata/gaya yang DILARANG. Kata dia: 80% isi file ini harusnya soal apa yang DITOLAK.</li>
+        <li>Folder 4-bagian: About Me / Projects / Templates / Outputs (3 boleh dibaca doang, 1 boleh ditulis).</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><div><h3><a href="https://x.com/rubenhassid/status/2048341314601979952" target="_blank">Folder Cowork Step-by-Step</a></h3><span class="handle">@rubenhassid</span></div><span class="badge tip">Versi lebih rapi</span></div>
+      <ul>
+        <li>Versi lebih rapi dari thread di atas — tiap folder dikasih contoh isi &amp; prompt pemicu yang persis.</li>
+        <li>"CLAUDE OUTPUTS/" ditegasin sebagai <b>satu-satunya</b> folder yang boleh ditulis Claude.</li>
+        <li>Nyaranin pakai <b>Obsidian</b> (lihat kartu di bawah) buat ngedit file-file itu tanpa ribet.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><div><h3><a href="https://x.com/rubenhassid/status/2029514946640322593" target="_blank">Setup Cowork dari Nol</a></h3><span class="handle">@rubenhassid</span></div><span class="badge tip">Panduan awal</span></div>
+      <ul>
+        <li>Jelasin beda <b>Chat / Project / Code / Cowork / Skills / Connectors / Plugins</b> — semua "wujud" Claude dalam 1 kalimat masing-masing.</li>
+        <li>Cowork = versi Claude Code buat yang bukan developer.</li>
+        <li>Tips: selalu pilih model paling pintar (waktu itu "Opus") + nyalain "Extended Thinking" biar mikir lebih dalam sebelum jawab.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><div><h3><a href="https://x.com/rubenhassid/status/2044310385357140304" target="_blank">Obsidian buat Ngedit File</a></h3><span class="handle">@rubenhassid</span></div><span class="badge tip">Alat bantu</span></div>
+      <ul>
+        <li><b>Obsidian</b> = aplikasi gratis buat buka folder file .md (markdown) supaya tampilannya rapi kayak Google Docs — ga perlu buka Notepad yang penuh tanda pagar (#) &amp; bintang (*).</li>
+        <li>Klik file → langsung ke-render rapi, bisa diedit langsung dari situ.</li>
+        <li>Kenapa ini cocok buat kamu: <b>ga perlu ngerti kode buat ngedit aturan sendiri.</b></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><div><h3><a href="https://x.com/rubenhassid/status/2030667540389634534" target="_blank">"Anti-Style File" &gt; Larangan Abstrak</a></h3><span class="handle">@rubenhassid</span></div><span class="badge tip">Insight penting</span></div>
+      <ul>
+        <li>Nyuruh AI "jangan A, jangan B, jangan C" itu <b>lemah</b> — kata dia AI "lupa separuhnya di kalimat ketiga".</li>
+        <li>Yang lebih efektif: <b>kasih file contoh konkret</b> pola/kata yang mau dihindarin, biar AI belajar dari pola nyata.</li>
+        <li><i>Ini langsung relevan buat rules kamu</i> — instruksi "jangan pakai kata klise" itu abstrak, bisa diperkuat pakai contoh kalimat nyata.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><div><h3><a href="https://x.com/rubenhassid/status/2045713046065283435" target="_blank">Claude For Dummies (bagian lanjutan)</a></h3><span class="handle">@rubenhassid</span></div><span class="badge tip">Pemula lengkap</span></div>
+      <ul>
+        <li>5 aturan ngobrol sama Claude: spesifik, kasih contoh, bilang yang MAU (bukan cuma yang GA MAU), mulai pendek dulu baru ditambahin detail, kalau bingung mulai chat baru.</li>
+        <li>Daftar hal yang Claude <b>bagus</b> (nulis, ringkas dokumen panjang, mikir bareng) vs <b>kurang bagus</b> (info real-time, matematika presisi, bikin gambar).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="struktur">
+  <div class="block-head"><span class="block-num">E</span><h2 class="block-title">Struktur Proyek &amp; Tips Tambahan</h2></div>
+  <p class="block-desc">Sumber-sumber yang isinya lebih ke "cara nyusun proyek" dan tips harian, dari berbagai penulis berbeda.</p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-top"><div><h3><a href="https://www.ayautomate.com/blog/best-claude-md-examples" target="_blank">12 Contoh CLAUDE.md Terbaik</a></h3><span class="handle">ayautomate.com</span></div><span class="badge tip">Riset gabungan</span></div>
+      <ul>
+        <li>Bandingin banyak CLAUDE.md dari proyek nyata (LlamaIndex, Supabase, dll).</li>
+        <li>Titik "sweet spot" panjang file: <b>100-400 baris</b>. Di bawah 100 kurang spesifik, di atas 400 tandanya harus dipecah jadi beberapa file.</li>
+        <li>Kegagalan paling umum: nulis ulang hal yang AI udah otomatis tau (buang-buang tempat), dan file dibiarin basi ga di-update.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><div><h3><a href="https://x.com/dkare1009/status/2039407475275743545" target="_blank">Struktur Proyek Claude Code</a></h3><span class="handle">@dkare1009</span></div><span class="badge tip">Ringkasan visual</span></div>
+      <ul>
+        <li>Peta singkat: CLAUDE.md (aturan), rules/ (standar per-topik), commands/ (workflow siap pakai), skills/ (keahlian on-demand), agents/ (sub-asisten khusus), hooks/ (otomatisasi paksa).</li>
+        <li>Mengkonfirmasi ulang struktur yang sama dari sumber lain — berarti ini emang "standar" yang disepakati banyak orang.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><div><h3><a href="https://x.com/dr_cintas/status/2052417046789714123" target="_blank">5 Folder buat "Tim Dev Lengkap"</a></h3><span class="handle">@dr_cintas</span></div><span class="badge tip">Ringkasan</span></div>
+      <ul>
+        <li>CLAUDE.md = "konstitusi" proyek. skills/ = pengetahuan. hooks/ = pagar pembatas (deterministic, bukan AI). subagents/ = pendelegasian tugas. plugins/ = cara bagi sistem ini ke tim.</li>
+        <li>Poin bagus: hooks dibilang "Deterministic. Not AI" — artinya hasilnya pasti sama tiap kali, ga tergantung mood AI.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><div><h3><a href="https://x.com/gudanglifehack/status/2043509370005475557" target="_blank">9 Golden Rules (infografis)</a></h3><span class="handle">@gudanglifehack</span></div><span class="badge tip">Infografis</span></div>
+      <ul>
+        <li>Download app → pilih model tepat (Opus + Extended Thinking) → pakai Cowork bukan Chat biasa → bikin 4 folder (About Me/Templates/Projects/Outputs) → tulis file "about me" → tulis file "anti-AI style" → set instruksi global → mulai tanya (bukan langsung prompt panjang) → edit prompt (jangan kirim pesan baru buat koreksi kecil).</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><div><h3><a href="https://x.com/Shoumya23/status/2096789687935615482" target="_blank">19 Laws of Claude (infografis)</a></h3><span class="handle">@Shoumya23</span></div><span class="badge tip">Infografis</span></div>
+      <ul>
+        <li>19 tips harian: pakai memory, ganti model sesuai kebutuhan, extended thinking, kasih contoh, kasih Claude "peran" (misal: "kamu recruiter senior"), guardrails (pagar spesifik), push back (minta dia nge-challenge balik), stress test ide kamu, upload file referensi, simpen prompt bagus, connectors, pilih mode yang tepat, projects, stay simple (1 proyek = 1 tugas), skills siap pakai, custom skills, artifacts (hasil interaktif), minta beberapa opsi sekaligus, minta penjelasan level "gampang dipahami".</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><div><h3><a href="https://x.com/NainsiDwiv50980/status/2032835888070500801" target="_blank">Kebiasaan Boris Cherny (pembuat Claude Code)</a></h3><span class="handle">@NainsiDwiv50980</span></div><span class="badge official">Sangat actionable</span></div>
+      <ul>
+        <li>Tips paling simpel &amp; kuat dari semua sumber: <b>tiap habis ngoreksi Claude, tutup dengan kalimat "Update CLAUDE.md-mu biar ga bikin kesalahan yang sama lagi."</b></li>
+        <li>Jadi file aturan <b>update sendiri</b> tiap ada koreksi — kamu ga perlu nulis manual satu-satu.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="tools">
+  <div class="block-head"><span class="block-num">F</span><h2 class="block-title">Repo &amp; Aplikasi Siap Pakai</h2></div>
+  <p class="block-desc">Bukan cuma teori — ini yang bisa langsung diinstall/dicoba.</p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-top"><div><h3><a href="https://github.com/ayghri/i-have-adhd" target="_blank">i-have-adhd</a></h3><span class="handle">GitHub · 39.100+ bintang</span></div><span class="badge official">Paling relevan buat kamu</span></div>
+      <ul>
+        <li>Skill open-source (gratis) yang <b>literally dibikin buat orang ADHD</b>. Bisa diinstall langsung ke Claude Code.</li>
+        <li>10 aturan komunikasinya: mulai jawaban dengan aksi langsung, nomorin langkah, tutup dengan 1 next-step spesifik, ga ada saran sampingan, ulang konteks penting, estimasi waktu pakai angka menit, progress ditulis jelas, ngaku salah langsung tanpa muter-muter minta maaf, <b>maksimal 5 item per list</b>, ga ada basa-basi pembuka/penutup.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><div><h3><a href="https://github.com/affaan-m/everything-claude-code" target="_blank">everything-claude-code</a></h3><span class="handle">GitHub · disebut di @noisyb0y1</span></div><span class="badge warn">Cek dulu sebelum pakai</span></div>
+      <ul>
+        <li>Kumpulan besar agent (27) &amp; skill (64) siap pakai, katanya "OS lengkap buat bikin produk", jalan di Claude/Codex/Cursor sekaligus.</li>
+        <li><b>Peringatan dari sumbernya sendiri:</b> jangan nyalain semuanya sekaligus — 27 agent + 64 skill bareng bisa boros token/biaya dengan cepat. Ambil yang perlu aja.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><div><h3><a href="https://obsidian.md" target="_blank">Obsidian</a></h3><span class="handle">obsidian.md — gratis</span></div><span class="badge tip">Editor file .md</span></div>
+      <ul>
+        <li>Sudah dijelasin di Bagian D — app gratis buat buka &amp; edit file markdown (.md) dengan tampilan rapi.</li>
+        <li>Ga perlu bikin akun, ga ada analytics — datanya tetep di komputer kamu sendiri.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="advanced">
+  <div class="block-head"><span class="block-num">G</span><h2 class="block-title">Level Lanjutan (boleh dilewatin dulu)</h2></div>
+  <p class="block-desc">Ini sumber-sumber yang jauh lebih teknis — buat developer yang bikin sistem AI besar/production. Aku ringkas biar kamu TAU konsepnya ada, tapi ga perlu diterapin ke proyek ATS yang masih kecil (4 user HR).</p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-top"><div><h3><a href="https://x.com/trq212/status/2061907337154367865" target="_blank">Dynamic Workflows</a></h3><span class="handle">@trq212 — tim resmi Anthropic</span></div><span class="badge official">Resmi Anthropic</span></div>
+      <ul>
+        <li>Fitur Claude Code bikin "tim Claude mini" sendiri — 1 Claude nyari fakta, Claude lain ngecek kebenarannya, baru digabung. Kayak dibagi kerja ke beberapa asisten yang jalan bareng.</li>
+        <li>Berguna buat kerjaan besar (migrasi kode raksasa, riset mendalam) — bukan buat kerjaan sehari-hari yang simpel.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><div><h3><a href="https://x.com/polydao/status/2083061585858158636" target="_blank">Loop Engineering</a></h3><span class="handle">@polydao</span></div><span class="badge tip">Advanced</span></div>
+      <ul>
+        <li>Konsep "AI yang kerja sendiri sambil kamu tidur" — ada pemicu (jadwal), pengerjaan, <b>pengecek independen</b> (evaluator beda dari yang ngerjain, biar objektif), penyimpan status, dan syarat berhenti.</li>
+        <li>Insight yang bisa diambil walau ga bikin sistem serumit ini: <b>pengecek/reviewer sebaiknya "orang"/proses yang beda dari yang bikin kerjaan</b> — biar ga menilai pekerjaan sendiri secara bias.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><div><h3><a href="https://x.com/polydao/status/2093756336664109316" target="_blank">Contoh Folder Loop Nyata</a></h3><span class="handle">@polydao</span></div><span class="badge tip">Advanced</span></div>
+      <ul>
+        <li>Contoh praktis dari konsep di atas: file kontrak aturan, jadwal, "rubric" (kriteria penilaian) buat kode/tulisan/keamanan, catatan tiap sesi kerja, dan "tombol panik" buat berhenti darurat.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><div><h3><a href="https://x.com/humzaakhalid/status/2058397894152188362" target="_blank">Sistem "Analis Keuangan Pribadi"</a></h3><span class="handle">@humzaakhalid</span></div><span class="badge tip">Contoh non-coding</span></div>
+      <ul>
+        <li>Bukan soal coding — tapi nunjukin folder+file yang sama bisa dipakai buat urusan lain (di sini: keuangan pribadi).</li>
+        <li>Ada file <b>memory.md</b> yang otomatis nyatet tiap info baru dengan tanggal — mirip sistem memory yang aku pakai buat nginget hal soal kamu.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><div><h3><a href="https://x.com/0xCodez/status/2089393338977829278" target="_blank">Roadmap "AI Agent Engineer"</a></h3><span class="handle">@0xCodez</span></div><span class="badge warn">Sangat teknis</span></div>
+      <ul>
+        <li>12 langkah bikin sistem AI agent tingkat production (context, tools, memory, loop, evaluasi, dll) — buat orang yang kerjanya emang bikin AI agent.</li>
+        <li>Satu fakta yang tetap relevan: <b>CLAUDE.md sebaiknya di bawah 200 baris</b> — ini sumber ke-3 yang bilang angka sama, makin kuat buktinya.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><div><h3><a href="https://x.com/hooeem/status/2033198345045336559" target="_blank">"Claude Architect" Exam Guide</a></h3><span class="handle">@hooeem</span></div><span class="badge warn">Sangat teknis</span></div>
+      <ul>
+        <li>Panduan belajar buat sertifikasi developer resmi Anthropic (butuh jadi partner buat ambil ujiannya beneran).</li>
+        <li>Isinya soal bikin sistem AI kompleks pakai kode (Agent SDK, API, MCP) — <b>ga relevan buat kamu sebagai HR</b>, ini murni buat developer yang mau kerja bikin aplikasi AI.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="hati2">
+  <div class="block-head"><span class="block-num">H</span><h2 class="block-title">Sumber yang Perlu Dibaca dengan Hati-hati</h2></div>
+  <p class="block-desc">Sesuai prinsip "AI harus objektif, jangan asal setuju" — ini sumber yang isinya perlu disaring, bukan ditelan mentah-mentah.</p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-top"><div><h3><a href="https://x.com/noisyb0y1/status/2043609541477044439" target="_blank">"Google Engineer Automated 80% Kerjaannya"</a></h3><span class="handle">@noisyb0y1</span></div><span class="badge warn">⚠ Perlu skeptis</span></div>
+      <ul>
+        <li>Klaim penghasilan pasif "$28.000" dan kerja "2-3 jam/hari" itu <b>ga ada bukti/sumber yang bisa diverifikasi</b> — gaya tulisannya khas akun yang ngejar engagement (clickbait), bukan laporan riset.</li>
+        <li>Ada juga klaim "Claude Code versi tertentu diam-diam makan token lebih banyak dari yang seharusnya" — ini klaim serius yang <b>cuma disebut dari 1 sumber ga jelas</b>, belum dikonfirmasi resmi dari Anthropic. Jangan langsung dipercaya tanpa verifikasi lebih lanjut.</li>
+        <li>Yang tetap valid dari postingan ini cuma konsep umum yang <i>udah</i> dikonfirmasi sumber lain: CLAUDE.md berbasis aturan Karpathy, dan ada repo "everything-claude-code" (lihat Bagian F, dengan catatan hati-hati juga).</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><div><h3>Catatan umum soal thread @rubenhassid</h3><span class="handle">Berlaku ke semua threadnya di atas</span></div><span class="badge warn">⚠ Konteks</span></div>
+      <ul>
+        <li>Isi konsepnya (folder, about-me file, anti-style file) <b>valid dan berguna</b> — makanya dipakai berulang di dossier ini.</li>
+        <li>Tapi tiap thread <b>selalu berujung promosi</b> newsletter berbayar/link "download gratis" yang perlu subscribe dulu. Ambil konsepnya, ga perlu ikutin funnel-nya.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+</div>
+</div>
+
+<div class="wrap">
+<footer>
+  Dossier ini kompilasi dari 27 tautan yang kamu kasih (2 batch riset), dibaca &amp; disaring untuk konteks proyek HireDesk ATS. Bukan pengganti baca sumber aslinya kalau kamu mau ngecek detail lebih jauh — semua judul kartu di atas bisa diklik.
+</footer>
+</div>

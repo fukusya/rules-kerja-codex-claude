@@ -1,0 +1,35 @@
+{
+  "_comment": "Copy ke .claude/settings.json di tiap project. Ini yang beneran MAKSA (bukan cuma aturan tertulis yang bisa dilewatin). Sesuaikan sama stack project masing-masing.",
+
+  "permissions": {
+    "allow": [
+      "Read",
+      "Glob",
+      "Grep",
+      "Bash(git status)",
+      "Bash(git diff*)",
+      "Bash(git log*)"
+    ],
+    "ask": [
+      "Bash(git push*)",
+      "Bash(git commit*)",
+      "Bash(npm install*)",
+      "Bash(*migrate*)",
+      "Bash(*deploy*)"
+    ],
+    "deny": [
+      "Bash(git push --force*)",
+      "Bash(rm -rf*)",
+      "Bash(*--accept-data-loss*)",
+      "Read(.env)",
+      "Read(**/secrets/**)"
+    ]
+  },
+
+  "_catatan": [
+    "'allow' = boleh jalan otomatis tanpa nanya.",
+    "'ask' = selalu nanya persetujuan dulu tiap kali, walau udah pernah di-approve sebelumnya.",
+    "'deny' = diblokir total, ga peduli diminta gimanapun.",
+    "Ini nutupin aturan 3.4 di CLAUDE.md global (jangan push tanpa approval) dengan cara yang beneran ga bisa dilewatin, bukan cuma 'tertulis'."
+  ]
+}

@@ -1,0 +1,61 @@
+# AGENTS.md — Template Per-Project
+
+> Copy file ini ke folder utama tiap project sebagai `AGENTS.md`. Isi bagian yang ada tanda `[ISI DI SINI]`. File ini dibaca Claude maupun Codex.
+> Kalau proyeknya pakai Claude Code, bikin file `CLAUDE.md` isinya cuma 1 baris: `@AGENTS.md` — biar Claude baca file yang sama, ga perlu duplikat/nulis dua kali.
+> **Jaga file ini di bawah ±150 baris.** Kalau kepanjangan, pecah jadi file di folder `.claude/rules/` per-topik — jangan numpuk semua di sini.
+
+---
+
+## Ringkasan Project
+
+[ISI DI SINI — 1-2 kalimat: project ini buat apa, buat siapa]
+
+## Stack & Command
+
+[ISI DI SINI — teknologi yang dipakai, dan command yang beneran bisa langsung dijalanin, misal:]
+- Install: `...`
+- Jalanin dev server: `...`
+- Test: `...`
+- Build: `...`
+
+## Struktur Folder Penting
+
+[ISI DI SINI — folder utama dan isinya, 1 baris per folder, secukupnya aja]
+
+---
+
+## Alur Kerja Claude ↔ Codex (WAJIB, jangan diubah tanpa alasan kuat)
+
+1. **Rencana dulu.** Claude susun rencana singkat (apa yang mau diubah, di mana, kenapa) sebelum nulis kode buat fitur yang ga sepele.
+2. **Codex review RENCANA, bukan hasil kode jadi.** Kirim rencana itu ke Codex buat kasih opini/second-check SEBELUM implementasi penuh dimulai. Codex dipanggil lagi setelah implementasi HANYA kalau ada keputusan besar yang berubah dari rencana awal — bukan buat tiap revisi kecil.
+3. **Ada ketergantungan luar yang belum tervalidasi?** (library pihak ketiga, API luar, asumsi soal browser/sistem lain) → wajib divalidasi kecil-kecilan dulu sebelum lanjut bangun fitur penuh.
+4. **Sebelum lapor "selesai"**, wajib ada bukti dicoba beneran (jalanin/klik/reproduksi manual) — bukan cuma "test pass". Lihat aturan global bagian 3.2.
+5. **Kalau macet >30-40 menit di masalah yang sama tanpa progress**, berhenti dan laporan ke user — jangan terus nyoba sendirian.
+
+## Batasan / Permission
+
+**Boleh otomatis tanpa nanya:**
+[ISI DI SINI — misal: baca file, jalanin test 1 file, lint]
+
+**Wajib nanya/nunggu approval dulu:**
+- git push, deploy, migrasi database, hapus data
+- Nyentuh file di luar yang udah disebutin di rencana
+- Menambahkan dependency/library baru
+[ISI DI SINI — tambahan spesifik project ini]
+
+---
+
+## Definition of Done (checklist sebelum bilang "selesai")
+
+- [ ] Udah dicoba jalan langsung (bukan cuma baca kode)?
+- [ ] Kalau ada test baru, test itu beneran ngecek hasil yang benar (bukan cuma "ga error")?
+- [ ] Ada bagian yang di-skip/gagal? Kalau ada, udah dilaporin jelas (bukan disembunyiin)?
+- [ ] Laporan ke user pakai bahasa non-teknis (apa/kenapa/di mana/cara coba/hasil)?
+
+---
+
+## Zona yang Pernah Bermasalah (gotcha — tambahin tiap ada insiden baru)
+
+> Diisi progresif. Tiap kali ada kesalahan yang makan waktu lama buat dibenerin, catet di sini biar ga kejadian lagi.
+
+- [ISI DI SINI seiring berjalan — kosong dulu di awal project]
