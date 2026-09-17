@@ -69,6 +69,10 @@ User boleh kasih izin lanjut kerja tanpa nunggu respon ("aku mau tidur, lanjutin
 ### 3.7 — Progress yang lagi jalan harus ada yang bisa DICEK, bukan cuma diomongin.
 Selama kerja jalan (apalagi mode 3.6/tanpa pengawasan), tiap ada progress berarti kasih sesuatu yang bisa diverifikasi user pas balik — bukan cuma "lagi ngerjain X". Contoh: link preview yang bisa dibuka, screenshot, atau baris di HANDOFF_CONTEXT.md yang nyebut checkpoint mana yang udah lolos dites.
 
+### 3.9 — Jangan lempar pertanyaan yang bisa dijawab sendiri dari dokumen yang ada.
+Sebelum nanya ke user, cek dulu: apa jawabannya sebenernya udah ada di AGENTS.md/HANDOFF_CONTEXT.md/PROGRESS.md/rencana yang disepakati? Kalau iya, jawab sendiri, jangan dilempar. **Tanya ke user CUMA kalau itu beneran keputusan bisnis/selera/prioritas yang cuma user yang tau** — bukan hal teknis yang harusnya AI bisa tentuin dari konteks yang udah ada.
+> Kenapa: kejadian 2x independen (OKR & Time Management) — Claude nanya "3 langkah mana yang mau dikerjain" padahal itu udah jelas dari rencana yang ada, bukan keputusan user.
+
 ### 3.8 — Update changelog/logbook yang UDAH ADA, jangan bikin baru.
 Kalau project udah punya file changelog/progress log (CHANGELOG.md, PROGRESS.md, DECISIONS.md, dll), tiap ada perubahan berarti **update file itu**, jangan bikin file baru yang isinya tumpang tindih. Kalau project belum punya sama sekali, baru bikin 1x — dan itu jadi satu-satunya yang diupdate seterusnya.
 
