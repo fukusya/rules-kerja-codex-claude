@@ -7,15 +7,15 @@
 | [`global/CLAUDE.md`](global/CLAUDE.md) | `~/.claude/CLAUDE.md` (folder home, 1x aja, berlaku ke SEMUA project) | Identitas kamu + gaya komunikasi + aturan lintas-project |
 | [`project-template/AGENTS.md`](project-template/AGENTS.md) | `AGENTS.md` di folder utama tiap project (OKR, ATS, Siklus Kulit, Time Management, WhatsApp extension) | Alur kerja Claude↔Codex, permission, definition of done — diisi manual per-project |
 | [`project-template/settings.example.json`](project-template/settings.example.json) | `.claude/settings.json` di tiap project | Yang beneran MAKSA (git push wajib nanya, dll) — bukan cuma tertulis |
-| [`project-template/STATUS.md`](project-template/STATUS.md) | `STATUS.md` di folder utama tiap project | Ringkasan status terkini — ini yang dibaca sesi chat BARU, bukan transkrip lengkap. Dirujuk dari AGENTS.md, wajib diupdate sebelum sesi ditutup. |
+| [`project-template/HANDOFF_CONTEXT.md`](project-template/HANDOFF_CONTEXT.md) | `HANDOFF_CONTEXT.md` di folder utama tiap project | Ringkasan status terkini — ini yang dibaca sesi chat BARU, bukan transkrip lengkap. Dirujuk dari AGENTS.md, wajib diupdate sebelum sesi ditutup. |
 
 ## Soal transkrip lama (chat baru bakal "lupa" konteks?)
 
 Transkrip yang udah kamu simpen ([lihat daftar di bawah](#transkrip-per-project)) **ga perlu dipaste ulang ke chat baru** — kepanjangan, malah boros token kayak insiden 88k-token kemarin. Caranya:
 
-1. Isi `STATUS.md` tiap project dengan ringkasan singkat: lagi ngerjain apa, keputusan yang udah final, dependency yang udah/belum divalidasi.
-2. Tiap sesi baru WAJIB baca `STATUS.md` dulu (udah diatur di `AGENTS.md` langkah 0).
-3. Transkrip lengkap cuma dibuka kalau beneran butuh tau alasan detail di balik keputusan lama — dirujuk lewat link di `STATUS.md`, bukan dibaca utuh tiap sesi.
+1. Isi `HANDOFF_CONTEXT.md` tiap project dengan ringkasan singkat: lagi ngerjain apa, keputusan yang udah final, dependency yang udah/belum divalidasi.
+2. Tiap sesi baru WAJIB baca `HANDOFF_CONTEXT.md` dulu (udah diatur di `AGENTS.md` langkah 0).
+3. Transkrip lengkap cuma dibuka kalau beneran butuh tau alasan detail di balik keputusan lama — dirujuk lewat link di `HANDOFF_CONTEXT.md`, bukan dibaca utuh tiap sesi.
 
 ### Transkrip per-project
 
@@ -40,13 +40,13 @@ cp global/CLAUDE.md ~/.claude/CLAUDE.md
 
 ```bash
 cp project-template/AGENTS.md /path/ke/project/AGENTS.md
-cp project-template/STATUS.md /path/ke/project/STATUS.md
+cp project-template/HANDOFF_CONTEXT.md /path/ke/project/HANDOFF_CONTEXT.md
 mkdir -p /path/ke/project/.claude
 cp project-template/settings.example.json /path/ke/project/.claude/settings.json
 echo "@AGENTS.md" > /path/ke/project/CLAUDE.md
 ```
 
-Terus **buka `AGENTS.md` dan `STATUS.md` di project itu, isi bagian `[ISI DI SINI]`** — stack, command, struktur folder, batasan spesifik project itu. Kalau project udah punya `CLAUDE.md` isinya banyak, jangan langsung timpa — gabungin dulu bagian yang masih relevan ke `AGENTS.md`, baru `CLAUDE.md`-nya diringkas jadi cuma `@AGENTS.md`.
+Terus **buka `AGENTS.md` dan `HANDOFF_CONTEXT.md` di project itu, isi bagian `[ISI DI SINI]`** — stack, command, struktur folder, batasan spesifik project itu. Kalau project udah punya `CLAUDE.md` isinya banyak, jangan langsung timpa — gabungin dulu bagian yang masih relevan ke `AGENTS.md`, baru `CLAUDE.md`-nya diringkas jadi cuma `@AGENTS.md`.
 
 ## Kalau nanti ada koreksi baru
 

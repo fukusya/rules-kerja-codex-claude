@@ -1,0 +1,282 @@
+<title>Peta Kerja AI</title>
+<meta name="description" content="Laporan siap kirim ke atasan, penjelasan 3 file aturan, alur update GitHub, dan status 5 project — satu halaman.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --bg:#F4F5F3; --surface:#FFFFFF; --surface-2:#ECEEF0;
+  --ink:#1E2225; --ink-soft:#565C61; --ink-faint:#8B9095;
+  --line:#DADDE0; --line-soft:#E7E9E7;
+  --accent:#3E6259; --accent-soft:#E1EAE7; --accent-ink:#F4FBF8;
+  --pending:#A9622F; --pending-soft:#F3E4D6;
+  --done:#3E6259; --done-soft:#E1EAE7;
+  --shadow:0 1px 2px rgba(30,34,37,.05), 0 10px 24px -14px rgba(30,34,37,.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#181B1A; --surface:#212423; --surface-2:#262A28;
+    --ink:#EDEEEA; --ink-soft:#AEB3AD; --ink-faint:#767C77;
+    --line:#333734; --line-soft:#2A2E2B;
+    --accent:#78B39F; --accent-soft:#22322B; --accent-ink:#0D1512;
+    --pending:#DE9A5F; --pending-soft:#3A2A1B;
+    --done:#78B39F; --done-soft:#22322B;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 14px 28px -16px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#181B1A; --surface:#212423; --surface-2:#262A28;
+  --ink:#EDEEEA; --ink-soft:#AEB3AD; --ink-faint:#767C77;
+  --line:#333734; --line-soft:#2A2E2B;
+  --accent:#78B39F; --accent-soft:#22322B; --accent-ink:#0D1512;
+  --pending:#DE9A5F; --pending-soft:#3A2A1B;
+  --done:#78B39F; --done-soft:#22322B;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 14px 28px -16px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box;}
+body{ margin:0; background:var(--bg); color:var(--ink); font-family:'Work Sans',system-ui,sans-serif; font-size:16px; line-height:1.6; padding-inline:20px; }
+h1,h2,h3{ font-family:'Lora',Georgia,serif; text-wrap:balance; color:var(--ink); margin:0; }
+.mono{ font-family:'IBM Plex Mono',ui-monospace,monospace; }
+a{ color:var(--accent); }
+
+.wrap{ max-width:860px; margin:0 auto; padding-block:48px 90px; }
+
+header.hero{ margin-bottom:44px; }
+.eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+.eyebrow::before{ content:""; width:20px; height:1px; background:var(--accent); }
+h1.title{ font-size:clamp(28px,4.6vw,38px); font-weight:700; line-height:1.15; }
+.dek{ margin-top:14px; font-size:16.5px; color:var(--ink-soft); max-width:60ch; }
+
+nav.jump{ display:flex; flex-wrap:wrap; gap:8px; margin-top:26px; }
+nav.jump a{ font-size:13px; text-decoration:none; color:var(--ink-soft); background:var(--surface); border:1px solid var(--line); padding:6px 13px; border-radius:99px; }
+nav.jump a:hover{ border-color:var(--accent); color:var(--accent); }
+
+section{ margin-bottom:56px; scroll-margin-top:20px; }
+.sec-head{ display:flex; align-items:baseline; gap:12px; margin-bottom:8px; }
+.sec-num{ font-family:'IBM Plex Mono',monospace; color:var(--accent); font-size:13.5px; }
+h2.sec-title{ font-size:clamp(21px,2.6vw,25px); font-weight:700; }
+.sec-desc{ color:var(--ink-soft); font-size:14.5px; margin:8px 0 22px; max-width:64ch; }
+
+/* REPORT BOX */
+.report-box{ background:var(--surface); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); overflow:hidden; }
+.report-head{ display:flex; justify-content:space-between; align-items:center; padding:14px 18px; border-bottom:1px solid var(--line); background:var(--surface-2); }
+.report-head span{ font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--ink-soft); }
+button.copy-btn{ font-family:'Work Sans',sans-serif; font-weight:600; font-size:13px; background:var(--accent); color:var(--accent-ink); border:none; padding:8px 16px; border-radius:7px; cursor:pointer; }
+button.copy-btn:hover{ opacity:.9; }
+button.copy-btn.copied{ background:var(--done); }
+.report-body{ padding:22px 24px; white-space:pre-wrap; font-family:'IBM Plex Mono',monospace; font-size:12.8px; line-height:1.7; color:var(--ink); overflow-x:auto; }
+.report-body b{ color:var(--accent); font-weight:600; }
+
+/* FILE CARDS */
+.file-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+@media (max-width:720px){ .file-grid{ grid-template-columns:1fr; } }
+.file-card{ background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:20px; box-shadow:var(--shadow); }
+.file-card .tag{ font-family:'IBM Plex Mono',monospace; font-size:12px; background:var(--accent-soft); color:var(--accent); padding:4px 10px; border-radius:6px; display:inline-block; margin-bottom:12px; }
+.file-card h3{ font-size:16.5px; margin-bottom:8px; }
+.file-card p{ font-size:13.8px; color:var(--ink-soft); margin:0 0 10px; }
+.file-card .analogy{ font-size:13px; font-style:italic; color:var(--ink-faint); border-top:1px dashed var(--line); padding-top:10px; margin-top:12px; }
+
+/* FLOW */
+.flow{ background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:26px; box-shadow:var(--shadow); }
+.flow-start{ font-size:14px; font-weight:600; text-align:center; margin-bottom:18px; }
+.flow-branch{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+@media (max-width:600px){ .flow-branch{ grid-template-columns:1fr; } }
+.branch{ border-radius:10px; padding:16px 18px; }
+.branch.doc{ background:var(--done-soft); border:1px solid var(--done); }
+.branch.code{ background:var(--pending-soft); border:1px solid var(--pending); }
+.branch .label{ font-family:'IBM Plex Mono',monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:.05em; margin-bottom:8px; }
+.branch.doc .label{ color:var(--done); }
+.branch.code .label{ color:var(--pending); }
+.branch p{ font-size:13.5px; margin:0; color:var(--ink); }
+.arrow-down{ text-align:center; font-size:20px; color:var(--ink-faint); margin:10px 0; }
+
+/* STATUS TABLE */
+.status-wrap{ background:var(--surface); border:1px solid var(--line); border-radius:12px; box-shadow:var(--shadow); overflow:hidden; }
+table.status{ width:100%; border-collapse:collapse; font-size:14px; }
+table.status th{ text-align:left; font-family:'IBM Plex Mono',monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-faint); padding:12px 16px; background:var(--surface-2); border-bottom:1px solid var(--line); }
+table.status td{ padding:14px 16px; border-bottom:1px solid var(--line-soft); vertical-align:top; }
+table.status tr:last-child td{ border-bottom:none; }
+table.status td.proj{ font-weight:600; white-space:nowrap; }
+.pill{ display:inline-block; font-size:11.5px; font-weight:600; padding:3px 10px; border-radius:99px; white-space:nowrap; }
+.pill.done{ background:var(--done-soft); color:var(--done); }
+.pill.pending{ background:var(--pending-soft); color:var(--pending); }
+.overflow-x{ overflow-x:auto; }
+
+footer{ margin-top:60px; padding-top:22px; border-top:1px solid var(--line); color:var(--ink-faint); font-size:12.5px; }
+</style>
+
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">Referensi — HireDesk &amp; project HR lainnya</div>
+  <h1 class="title">Peta Kerja AI</h1>
+  <p class="dek">Satu halaman: laporan siap kirim ke atasan, penjelasan 3 file aturan yang sering bikin bingung, alur update ke GitHub, dan status semua project.</p>
+  <nav class="jump">
+    <a href="#laporan">Laporan buat atasan</a>
+    <a href="#file">3 file aturan</a>
+    <a href="#alur">Alur ke GitHub</a>
+    <a href="#status">Status semua project</a>
+  </nav>
+</header>
+
+<section id="laporan">
+  <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Laporan buat atasan</h2></div>
+  <p class="sec-desc">Siap dikirim apa adanya — tinggal klik salin, paste ke email/chat.</p>
+
+  <div class="report-box">
+    <div class="report-head">
+      <span>update-progress.txt</span>
+      <button class="copy-btn" id="copyBtn" onclick="copyReport()">Salin teks</button>
+    </div>
+    <div class="report-body" id="reportText">Update progress AI-assisted development (ATS, OKR, WhatsApp)
+
+RINGKASAN
+Selama ~1 minggu terakhir, kita benerin cara kerja sama AI (Claude & Codex)
+biar ga boros waktu/biaya dan hasilnya lebih bisa dipertanggungjawabkan.
+Perubahan ini berlaku ke semua project internal.
+
+APA YANG BERUBAH
+- Ada aturan kerja standar tertulis (file CLAUDE.md & AGENTS.md, otomatis
+  dibaca AI tiap mulai kerja) — isinya cara kerja yang wajib diikutin:
+  rencana dulu sebelum ngoding, harus dibuktiin sebelum bilang selesai, dst.
+  Sebelumnya ga ada aturan tertulis, jadi caranya beda-beda tiap sesi.
+- Dulu: AI langsung bikin fitur, baru direview belakangan -> sering revisi
+  berkali-kali, mahal & lama.
+  Sekarang (aturan di AGENTS.md): AI bikin rencana dulu, direview SEBELUM
+  mulai kerja - jauh lebih murah kalau ada yang perlu diubah.
+- Dulu: AI kadang bilang "udah selesai" padahal cuma lolos test otomatis,
+  ternyata masih ada bug pas dipakai beneran.
+  Sekarang (aturan di AGENTS.md): wajib dibuktiin dicoba langsung dulu, ga
+  cuma modal test.
+- Sekarang ada "buku catatan" otomatis per project (file HANDOFF_CONTEXT.md),
+  jadi AI ga perlu dijelasin ulang dari nol tiap mulai sesi kerja baru.
+
+STATUS PER PROJECT (per modul)
+
+ATS
+[Selesai] Modul 1 - Candidate Tracker dasar
+[Selesai] Modul 1.5A - baca data live dari Google Sheet
+[Selesai] Modul 1.5B-1 - halaman review mapping
+[Selesai] Modul 1.5B-2 - mapping outcome/alasan + draft role baru
+[Belum]   Pilot - pindahin data 1-2 role ke sistem (belum mulai)
+[Belum]   Modul 1.5B-3 - filter & pagination (bukan prioritas sekarang)
+
+OKR
+[Selesai] M0-M1 - dashboard & akses sesuai role
+[Selesai] M2 - data dikelompokkan per divisi
+[Selesai] M3-A - Lead menyusun draft target
+[Selesai] M3-B - Lead mengajukan target ke C-level
+[Selesai] M4-A - C-level menyetujui/mengembalikan target
+[Selesai] M4-B - Lead mengajukan perubahan ke target yang sudah disetujui
+[Belum]   M5 - update progress mingguan
+[Belum]   M6 - submit hasil akhir & rekap
+
+WhatsApp Assistant
+[Selesai] Phase A-D - fondasi, sinkronisasi data kandidat, pengingat
+          assessment, dashboard, interview composer (814 pengecekan lolos)
+[Belum]   Phase E - notifikasi pengingat di desktop
+
+Next update: minggu depan.</div>
+  </div>
+</section>
+
+<section id="file">
+  <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">3 File yang Sering Bikin Bingung</h2></div>
+  <p class="sec-desc">Ketiganya beda fungsi. Ini bedanya, tanpa istilah teknis.</p>
+
+  <div class="file-grid">
+    <div class="file-card">
+      <span class="tag">CLAUDE.md</span>
+      <h3>Siapa Kamu</h3>
+      <p><b>1 file, berlaku SEMUA project, ga pernah beda-beda.</b> Isinya: kamu HR bukan dev, ADHD, gaya komunikasi yang wajib diikutin AI.</p>
+      <div class="analogy">Kayak surat perkenalan diri yang ditunjukin ke setiap orang baru yang kamu temui — ga perlu diulang-ulang.</div>
+    </div>
+    <div class="file-card">
+      <span class="tag">AGENTS.md</span>
+      <h3>Cara Kerja</h3>
+      <p><b>Beda-beda tiap project.</b> Isinya: stack teknis, command, dan aturan kerja spesifik (rencana dulu sebelum ngoding, dst).</p>
+      <div class="analogy">Kayak SOP kerja di tiap divisi — prinsipnya sama, tapi detail teknisnya nyesuain kerjaan masing-masing.</div>
+    </div>
+    <div class="file-card">
+      <span class="tag">HANDOFF_CONTEXT.md</span>
+      <h3>Lagi Di Mana</h3>
+      <p><b>Berubah-ubah, bukan aturan.</b> Isinya: progress terkini, keputusan yang udah final, langkah selanjutnya.</p>
+      <div class="analogy">Kayak papan tulis "sejauh ini udah sampai mana" — diupdate tiap ada progress, dibaca AI biar ga tanya ulang dari nol.</div>
+    </div>
+  </div>
+</section>
+
+<section id="alur">
+  <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Alur Update ke GitHub</h2></div>
+  <p class="sec-desc">Sebelum, semua nunggu persetujuan kamu tiap kali. Sekarang dipisah berdasar risiko.</p>
+
+  <div class="flow">
+    <div class="flow-start">Ada perubahan dari AI</div>
+    <div class="arrow-down">↓</div>
+    <div class="flow-branch">
+      <div class="branch doc">
+        <div class="label">Cuma dokumen</div>
+        <p>HANDOFF_CONTEXT.md, catatan progress, changelog → langsung disimpan &amp; diupload otomatis, ga nanya kamu. Risikonya kecil, tinggal diedit lagi kalau salah.</p>
+      </div>
+      <div class="branch code">
+        <div class="label">Kode aplikasi / database</div>
+        <p>Disimpan otomatis di laptop dulu (masih aman). Tapi diupload ke GitHub → <b style="color:var(--pending)">wajib nanya kamu dulu</b>, tiap kali, ga peduli udah pernah diizinin sebelumnya.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="status">
+  <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Status Project</h2></div>
+  <p class="sec-desc">3 project yang dilaporin ke atasan.</p>
+
+  <div class="status-wrap overflow-x">
+    <table class="status">
+      <tr><th>Project</th><th>Link</th><th>Aturan</th><th>Progress terkini</th></tr>
+      <tr>
+        <td class="proj">ATS</td>
+        <td><a href="https://github.com/eternia89/ats" target="_blank">repo ↗</a></td>
+        <td><span class="pill done">Terpasang</span></td>
+        <td>Modul 1, 1.5A, 1.5B-1, 1.5B-2 selesai. Pilot &amp; 1.5B-3 belum.</td>
+      </tr>
+      <tr>
+        <td class="proj">OKR</td>
+        <td><a href="https://github.com/tiejakmall/okr-jakmall" target="_blank">repo ↗</a> · <a href="https://okr-jakmall.vercel.app" target="_blank">live ↗</a></td>
+        <td><span class="pill done">Terpasang</span></td>
+        <td>M0-M4B selesai (6 modul). M5-M6 belum mulai.</td>
+      </tr>
+      <tr>
+        <td class="proj">WhatsApp</td>
+        <td><a href="https://github.com/fukusya/recruitment-chat-assistant" target="_blank">repo ↗</a></td>
+        <td><span class="pill done">Terpasang</span></td>
+        <td>Phase A-D selesai (814 pengecekan lolos). Phase E belum.</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<footer>
+  Referensi pribadi — dibikin dari sesi kerja penyusunan aturan Claude &amp; Codex lintas-project. Repo aturan lengkap: <a href="https://github.com/fukusya/rules-kerja-codex-claude" target="_blank">rules-kerja-codex-claude ↗</a>.
+</footer>
+
+</div>
+
+<script>
+function copyReport(){
+  var text = document.getElementById('reportText').innerText;
+  var btn = document.getElementById('copyBtn');
+  function done(){
+    btn.textContent = 'Tersalin ✓';
+    btn.classList.add('copied');
+    setTimeout(function(){ btn.textContent = 'Salin teks'; btn.classList.remove('copied'); }, 1800);
+  }
+  try{
+    navigator.clipboard.writeText(text).then(done).catch(function(){ fallbackCopy(text, done); });
+  }catch(e){ fallbackCopy(text, done); }
+  function fallbackCopy(t, cb){
+    var ta = document.createElement('textarea');
+    ta.value = t; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta); cb();
+  }
+}
+</script>

@@ -1,4 +1,4 @@
-# Status Terkini — [Nama Project]
+# Handoff Context — [Nama Project]
 
 > File ini WAJIB dibaca AI di awal tiap sesi baru (dirujuk dari AGENTS.md). Tujuannya: chat baru ga perlu baca ulang transkrip lama yang panjang — cukup baca ringkasan ini.
 > **Bukan tempat curhat/log harian.** Tulis singkat, update terus, buang yang udah ga relevan. Kalau file ini kepanjangan (>1 layar), itu tandanya perlu di-summary ulang, bukan ditambahin terus.
