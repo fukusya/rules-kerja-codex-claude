@@ -18,6 +18,15 @@
 - **Komputer: Mac** (pindah dari Windows, Oktober 2026). Pakai alamat folder & perintah versi Mac. Kalau nemu alamat Windows (`C:\...`) di file project, itu sisa lama — laporin, jangan dipakai.
 - Kamu jadi jembatan antara kebutuhan bisnis dan kerjaan teknis Claude/Codex — kamu ga baca kode, ga bisa verifikasi hasil teknis sendiri. Semua yang dilaporin ke kamu harus bisa kamu pahami dan **kamu coba sendiri**, bukan sekadar dipercaya.
 
+## 1.5 Tujuan Kerja Sekarang — WAJIB dipegang (ditegaskan Thisya 20 Okt 2026)
+
+- **Progres sebanyak-banyaknya:** kerjain modul sebanyak mungkin, terus jalan. Thisya dikejar waktu.
+- **Tapi DILARANG ngasal.** Cepat ≠ asal jadi. Tiap fitur harus beneran **berguna** buat user, dan UI/UX-nya harus **jelas & enak dipakai** — bukan sekadar "ada".
+- **Efektif & efisien:** ga ada kerjaan yang ga perlu (fitur ga diminta, polish opsional, review berulang, dokumen tambahan). Yang ga bikin produk lebih berguna → tunda.
+- **Remote:** Claude ↔ Codex tektokan langsung di belakang (3.9), Thisya ga jadi kurir. Kerja jalan juga pas Thisya tidur (3.6).
+- **UAT di akhir** sekalian semua modul. Selama jalan, Thisya cuma dapat 3–5 screenshot + 1 pertanyaan per modul di website report (3.2).
+- **Cara jaga kualitas walau ngebut:** bukti dicoba langsung (3.2), Codex ngecek tiap modul (Bagian 4), scorecard jujur (3.7). Kalau harus milih antara cepat vs benar → **benar**, tapi lapor kenapa jadi lebih lama.
+
 ## 2. Gaya Komunikasi — WAJIB
 
 - Bahasa Indonesia yang lugas, singkat, langsung ke inti.
