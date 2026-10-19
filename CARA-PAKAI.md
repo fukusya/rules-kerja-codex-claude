@@ -4,7 +4,7 @@
 
 | File | Ditaruh di | Fungsi |
 |---|---|---|
-| [`global/CLAUDE.md`](global/CLAUDE.md) | `~/.claude/CLAUDE.md` (folder home, 1x aja, berlaku ke SEMUA project) | Identitas kamu + gaya komunikasi + aturan lintas-project |
+| [`global/CLAUDE.md`](global/CLAUDE.md) | `~/.claude/CLAUDE.md` + `~/.codex/AGENTS.md` (folder home, 1x aja per komputer, berlaku ke SEMUA project) | Identitas kamu + gaya komunikasi + aturan lintas-project |
 | [`project-template/AGENTS.md`](project-template/AGENTS.md) | `AGENTS.md` di folder utama tiap project (OKR, ATS, Siklus Kulit, Time Management, WhatsApp extension) | Alur kerja Claude↔Codex, permission, definition of done — diisi manual per-project |
 | [`project-template/settings.example.json`](project-template/settings.example.json) | `.claude/settings.json` di tiap project | Yang beneran MAKSA (git push wajib nanya, dll) — bukan cuma tertulis |
 | [`project-template/HANDOFF_CONTEXT.md`](project-template/HANDOFF_CONTEXT.md) | `HANDOFF_CONTEXT.md` di folder utama tiap project | Ringkasan status terkini — ini yang dibaca sesi chat BARU, bukan transkrip lengkap. Dirujuk dari AGENTS.md, wajib diupdate sebelum sesi ditutup. |
@@ -34,7 +34,11 @@ Transkrip yang udah kamu simpen ([lihat daftar di bawah](#transkrip-per-project)
 ```bash
 mkdir -p ~/.claude
 cp global/CLAUDE.md ~/.claude/CLAUDE.md
+mkdir -p ~/.codex
+cp global/CLAUDE.md ~/.codex/AGENTS.md
 ```
+
+> Pindah/ganti komputer? Ulangi langkah 1 ini aja — file per-project udah ikut ke-clone bareng repo project-nya.
 
 ### 2. Pasang ke tiap project (ulangi buat OKR, ATS, Siklus Kulit, Time Management, WhatsApp extension)
 
@@ -51,4 +55,4 @@ Terus **buka `AGENTS.md` dan `HANDOFF_CONTEXT.md` di project itu, isi bagian `[I
 ## Kalau nanti ada koreksi baru
 
 - Kalau kesalahannya **spesifik 1 project** → tambahin ke bagian "Zona yang Pernah Bermasalah" di `AGENTS.md` project itu.
-- Kalau kesalahannya **bisa kejadian di project manapun** (soal gaya komunikasi, cara kerja Claude↔Codex, dll) → tambahin ke `global/CLAUDE.md` di repo ini, commit, push, terus copy ulang ke `~/.claude/CLAUDE.md`.
+- Kalau kesalahannya **bisa kejadian di project manapun** (soal gaya komunikasi, cara kerja Claude↔Codex, dll) → tambahin ke `global/CLAUDE.md` di repo ini, commit, push, terus copy ulang ke `~/.claude/CLAUDE.md` dan `~/.codex/AGENTS.md`.

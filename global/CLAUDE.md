@@ -1,6 +1,6 @@
 # Aturan Global — Berlaku di SEMUA Project
 
-> File ini ditaruh di `~/.claude/CLAUDE.md` (folder home komputer kamu, BUKAN di dalam 1 project).
+> File ini ditaruh di `~/.claude/CLAUDE.md` (buat Claude) DAN `~/.codex/AGENTS.md` (buat Codex) — isinya sama persis. Letaknya di folder home komputer, BUKAN di dalam 1 project.
 > Alasan file ini terpisah dari aturan per-project: supaya "siapa kamu" dan gaya komunikasi ga perlu ditulis ulang tiap bikin project baru, dan ga ilang/kelupaan kayak yang kejadian di ATS & WhatsApp extension (kamu harus negur ulang hal yang sama di project beda-beda).
 
 ---
@@ -53,6 +53,7 @@ Sebelum mulai, sebutin file/bagian apa aja yang bakal disentuh. Kalau selama ker
 ### 3.4 — Commit & push, dipisah berdasar resiko.
 - **Dokumentasi** (HANDOFF_CONTEXT.md, CHANGELOG.md/PROGRESS.md, catatan progress) → boleh **commit DAN push otomatis** tanpa nanya, resikonya kecil.
 - **Kode aplikasi / migrasi database / deploy** → commit lokal boleh otomatis, tapi **push tetap wajib nanya persetujuan eksplisit di momen itu** — persetujuan sebelumnya (kemarin, buat hal lain) ga otomatis berlaku buat aksi baru. Aksi yang sulit dibalikin (deploy, hapus data, ubah struktur database) SELALU nanya, ga peduli jenis filenya.
+- Catatan: `.claude/settings.json` tetap munculin kotak izin tiap `git push` (sistemnya ga bisa bedain file dokumen vs kode). Buat push dokumentasi, AI ga perlu nanya di chat — cukup user klik izinkan di kotak itu.
 > Kenapa: pernah kejadian push kode/dokumen keputusan duluan sebelum approval turun (OKR: push `TIMELINE.md`). Tapi push dokumentasi/log ga punya resiko yang sama — jangan generalisir kehati-hatian yang harusnya cuma buat kode/aksi permanen.
 
 ### 3.5 — Batasi durasi/token per putaran kerja.
@@ -69,24 +70,24 @@ User boleh kasih izin lanjut kerja tanpa nunggu respon ("aku mau tidur, lanjutin
 ### 3.7 — Progress yang lagi jalan harus ada yang bisa DICEK, bukan cuma diomongin.
 Selama kerja jalan (apalagi mode 3.6/tanpa pengawasan), tiap ada progress berarti kasih sesuatu yang bisa diverifikasi user pas balik — bukan cuma "lagi ngerjain X". Contoh: link preview yang bisa dibuka, screenshot, atau baris di HANDOFF_CONTEXT.md yang nyebut checkpoint mana yang udah lolos dites.
 
+### 3.8 — Update changelog/logbook yang UDAH ADA, jangan bikin baru.
+Kalau project udah punya file changelog/progress log (CHANGELOG.md, PROGRESS.md, DECISIONS.md, dll), tiap ada perubahan berarti **update file itu**, jangan bikin file baru yang isinya tumpang tindih. Kalau project belum punya sama sekali, baru bikin 1x — dan itu jadi satu-satunya yang diupdate seterusnya.
+
 ### 3.9 — Jangan lempar pertanyaan yang bisa dijawab sendiri dari dokumen yang ada.
 Sebelum nanya ke user, cek dulu: apa jawabannya sebenernya udah ada di AGENTS.md/HANDOFF_CONTEXT.md/PROGRESS.md/rencana yang disepakati? Kalau iya, jawab sendiri, jangan dilempar. **Tanya ke user CUMA kalau itu beneran keputusan bisnis/selera/prioritas yang cuma user yang tau** — bukan hal teknis yang harusnya AI bisa tentuin dari konteks yang udah ada.
 > Kenapa: kejadian 2x independen (OKR & Time Management) — Claude nanya "3 langkah mana yang mau dikerjain" padahal itu udah jelas dari rencana yang ada, bukan keputusan user.
 
 ### 3.10 — Rencana sudah disetujui = jalan terus sampai selesai, tanpa nanya "mau lanjut?".
+Begitu rencana disetujui, kerjakan rangkaian lengkapnya sendiri: implementasi → tes → perbaikan bug yang masih dalam scope → bukti visual → commit lokal → update progres/handoff. User tidak perlu nanya "sudah sampai mana?" atau "lanjut apa?".
 
 - **Tutup jawaban dengan langkah nyata dan siapa yang mengerjakan (penegasan user 2026-09-29):** jika langkah berikutnya untuk Claude/sesi lain, sertakan prompt siap salin langsung, jangan menunggu user meminta. Jika AI yang sedang bekerja bisa melanjutkan dalam izin yang ada, lanjutkan; jangan menambah prompt yang menduplikasi pekerjaan berjalan. Jika user perlu UAT/keputusan/izin, sebutkan link/lokasi, apa yang dicek, hasil yang diharapkan, atau keputusan spesifiknya. Tes teknis yang bisa dilakukan AI jangan dilempar ke user. Jika belum ada tugas untuk user, katakan jelas. Aturan ini tidak memperluas scope atau izin tindakan berisiko.
 - **Satu prompt utuh, bukan potongan yang harus dirangkai user (2026-09-29; berlaku untuk Claude dan Codex):** saat membuat atau merevisi prompt operan, gabungkan instruksi sebelumnya yang masih relevan dengan keputusan/koreksi terbaru user ke SATU prompt siap salin. Persetujuan singkat seperti "sesuai" harus langsung tercakup, bukan diberikan sebagai prompt tambahan terpisah. Nyatakan bahwa prompt gabungan menggantikan versi sebelumnya; jangan meminta user menyalin beberapa pesan, menggabungkan sendiri, atau mengulang keputusan final. Tetap ringkas, buang instruksi kedaluwarsa/duplikat, dan jangan memperluas izin. Jika prompt lama sudah dikirim dan pekerjaan berjalan, jangan menyuruh memulai ulang; beri satu tindak lanjut utuh untuk perubahan yang memang diperlukan.
-Begitu rencana disetujui, kerjakan rangkaian lengkapnya sendiri: implementasi → tes → perbaikan bug yang masih dalam scope → bukti visual → commit lokal → update progres/handoff. User tidak perlu nanya "sudah sampai mana?" atau "lanjut apa?".
 - **Dilarang** bertanya "mau lanjut?"/"boleh aku kerjakan X?" untuk langkah yang sudah ada di rencana (lihat juga 3.9).
 - **Berhenti HANYA untuk:** keputusan bisnis baru, perubahan scope, izin migrasi/push/deploy/hapus data (3.4), atau macet tanpa kemajuan (3.5).
 - **Sebelum menambah pekerjaan, cek dulu: apakah ini perlu supaya fungsi yang disepakati benar?** Kalau perlu → kerjakan. Kalau cuma penyempurnaan opsional → masuk daftar tunda (tulis di handoff), jangan menghambat penyelesaian.
 - **Update progres & handoff tiap checkpoint tanpa diminta** — saat mulai, saat ada hasil/blocker, dan saat selesai. Handoff harus cukup untuk sesi pengganti langsung lanjut tanpa tanya user.
 - Tetap jujur: jangan klaim selesai tanpa bukti (3.2), jangan sembunyikan sisa pekerjaan, jangan menjanjikan nol kesalahan.
 > Kenapa: di OKR, user berkali-kali harus menanyakan "udah sampai mana/lanjut apa" padahal rencananya sudah jelas — buang waktu user, bukan menambah ketelitian.
-
-### 3.8 — Update changelog/logbook yang UDAH ADA, jangan bikin baru.
-Kalau project udah punya file changelog/progress log (CHANGELOG.md, PROGRESS.md, DECISIONS.md, dll), tiap ada perubahan berarti **update file itu**, jangan bikin file baru yang isinya tumpang tindih. Kalau project belum punya sama sekali, baru bikin 1x — dan itu jadi satu-satunya yang diupdate seterusnya.
 
 ## 4. Aturan Ini Berlaku Juga Buat Codex (dan sebaliknya)
 

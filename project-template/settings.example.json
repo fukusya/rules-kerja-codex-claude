@@ -12,7 +12,6 @@
     ],
     "ask": [
       "Bash(git push*)",
-      "Bash(git commit*)",
       "Bash(npm install*)",
       "Bash(*migrate*)",
       "Bash(*deploy*)"

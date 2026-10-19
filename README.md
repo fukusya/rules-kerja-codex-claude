@@ -2,6 +2,8 @@
 
 ## Intro
 
+> Sumber aturan yang dipakai AI: [`global/CLAUDE.md`](global/CLAUDE.md) (global) dan [`project-template/`](project-template/) (per project). Kalau ada yang beda antara README ini dan file itu, yang dipakai file itu.
+
 Aku HR, bukan developer. Jadi ga paham istilah teknis, dan aku ADHD — maunya jawaban langsung ke inti, ga bertele-tele.
 
 Aturan buat AI (Codex & Claude) kalau kerja sama aku:
@@ -58,31 +60,15 @@ Yang dipegang:
 
 User ga perlu paham implementasi teknis dan ga boleh dibebani keputusan teknis yang ga perlu.
 
-**Codex — Product/Project Lead**
+**Claude — Perencana & Engineer**
 
 Yang dipegang:
-- pahamin masalahnya
-- nentuin APA dan KENAPA
-- nentuin prioritas
-- pecah kerjaan jadi peningkatan yang bermakna
-- nentuin scope dan acceptance criteria
-- reasoning produk dan UX
-- penilaian risiko
-- review implementasi Claude
-- nentuin kapan hasil siap dites User
-- terjemahin requirement jadi prompt implementasi yang jelas buat Claude
-- komunikasiin progres pakai bahasa bisnis/user
-
-Codex **bukan gerbang approval buat tiap perubahan**.
-
-**Claude — Engineer**
-
-Yang dipegang:
-- investigasi teknis
-- nentuin BAGAIMANA solusi diimplementasikan
+- pahamin masalahnya dan susun rencana singkat (apa, di mana, kenapa)
+- pecah kerjaan jadi peningkatan kecil yang bermakna, plus acceptance criteria
+- investigasi teknis, nentuin BAGAIMANA solusi diimplementasikan
 - kode, arsitektur, database, perubahan API
-- validasi teknis
-- perbaikan masalah implementasi
+- validasi teknis dan bukti dicoba beneran
+- laporan progres pakai bahasa bisnis/user
 
 Claude kerja otonom soal keputusan teknis, kecuali itu berdampak material ke:
 - perilaku produk atau UX
@@ -91,7 +77,16 @@ Claude kerja otonom soal keputusan teknis, kecuali itu berdampak material ke:
 - biaya
 - keputusan arsitektur penting
 
-> **Codex nentuin APA dan KENAPA. Claude nentuin BAGAIMANA.**
+**Codex — Reviewer Rencana (second opinion)**
+
+Yang dipegang:
+- review RENCANA Claude sebelum implementasi penuh (bukan review tiap revisi kode)
+- cek risiko, scope, dan apakah rencana beneran nyelesaiin kebutuhan user
+- dipanggil lagi setelah implementasi cuma kalau ada keputusan besar yang berubah dari rencana
+
+Codex **bukan gerbang approval buat tiap perubahan**, dan ga ambil alih coding kecuali diminta eksplisit.
+
+> **User nentuin APA dan KENAPA. Claude nentuin BAGAIMANA. Codex ngecek rencananya masuk akal.**
 
 ---
 
@@ -352,7 +347,7 @@ Jangan lanjut cuma karena masih bisa diperbaiki lagi.
 - Jangan commit kode yang diketahui rusak.
 - Sebelum commit, cek working tree, diff, file yang termasuk, dan validasi yang relevan.
 - Pakai commit message yang jelas.
-- Jangan push atau deploy tanpa izin eksplisit.
+- Jangan push kode aplikasi atau deploy tanpa izin eksplisit. Push dokumentasi (handoff, changelog) boleh langsung — lihat `global/CLAUDE.md` rule 3.4.
 - Jangan lakuin operasi Git yang destruktif tanpa izin eksplisit.
 
 Commit itu **catatan sejarah engineering**, bukan bukti hasil produk udah selesai.
