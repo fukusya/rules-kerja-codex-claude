@@ -18,6 +18,12 @@
 - Test: `...`
 - Build: `...`
 
+## Branch
+
+- **Branch kerja** (AI commit + push otomatis ke sini): [ISI DI SINI]
+- **Branch live** (website asli — wajib izin Thisya): [ISI DI SINI, biasanya `master`/`main`]
+- **Website report progres:** [ISI DI SINI — link]
+
 ## Struktur Folder Penting
 
 [ISI DI SINI — folder utama dan isinya, 1 baris per folder, secukupnya aja]
@@ -28,12 +34,12 @@
 
 0. **Baca [`HANDOFF_CONTEXT.md`](HANDOFF_CONTEXT.md) dulu di awal SETIAP sesi baru** — jangan minta user jelasin ulang, jangan baca transkrip lama utuh.
 0.5. **Kalau ada bagian HANDOFF_CONTEXT.md yang masih `[ISI]`/kosong** (terutama "lagi ngerjain apa", "rencana yang disepakati", "langkah selanjutnya") — **WAJIB berhenti dan tanya ke user dulu**: apa yang udah dibuat, rencana sebelumnya gimana, next-nya mau apa. JANGAN asumsi atau mulai kerja dari nol sebelum itu jelas.
-1. **Rencana dulu.** Claude susun rencana singkat (apa yang mau diubah, di mana, kenapa) sebelum nulis kode buat fitur yang ga sepele.
-2. **Codex review RENCANA, bukan hasil kode jadi.** Kirim rencana itu ke Codex buat kasih opini/second-check SEBELUM implementasi penuh dimulai. Codex dipanggil lagi setelah implementasi HANYA kalau ada keputusan besar yang berubah dari rencana awal — bukan buat tiap revisi kecil.
-3. **Ada ketergantungan luar yang belum tervalidasi?** (library pihak ketiga, API luar, asumsi soal browser/sistem lain) → wajib divalidasi kecil-kecilan dulu sebelum lanjut bangun fitur penuh.
-4. **Sebelum lapor "selesai"**, wajib ada bukti dicoba beneran (jalanin/klik/reproduksi manual) — bukan cuma "test pass". Lihat aturan global bagian 3.2.
-5. **Kalau macet >30-40 menit di masalah yang sama tanpa progress**, berhenti dan laporan ke user — jangan terus nyoba sendirian.
-6. **Sebelum sesi ditutup / sebelum konteks kepenuhan / setelah keputusan penting difinalin**, update [`HANDOFF_CONTEXT.md`](HANDOFF_CONTEXT.md) — ini yang bakal dibaca sesi berikutnya, bukan transkrip mentah.
+1. **Rencana sesuai resiko** (aturan global 3.1): rendah → langsung; normal → rencana singkat; tinggi → rencana direview Codex dulu (maks 2 putaran).
+2. **Claude ↔ Codex ngobrol langsung** lewat terminal (`codex exec` / `claude -p`), dicatat di log. Thisya bukan kurir.
+3. **Ketergantungan luar belum tervalidasi** (library, API, browser) → tes kecil dulu sebelum bangun penuh.
+4. **Sebelum lapor "selesai"** → bukti dicoba langsung, masuk website report (aturan global 3.2).
+5. **Macet ~30 menit** → tanya Codex → masih macet: catat, lewatin, lanjut kerjaan lain (aturan global 3.5).
+6. **Update HANDOFF_CONTEXT.md tiap checkpoint** (maks 1 layar).
 
 ## Changelog Project Ini
 
@@ -43,12 +49,12 @@
 
 **Boleh otomatis tanpa nanya:**
 - Baca file, jalanin test/lint, `git status`/`git diff`/`git log`
-- Commit lokal & push buat file dokumentasi (HANDOFF_CONTEXT.md, changelog) — resiko kecil
+- Commit + push ke branch kerja (kode maupun dokumentasi)
 [ISI DI SINI — tambahan spesifik project ini]
 
 **Wajib nanya/nunggu approval dulu:**
-- git push buat kode aplikasi (commit lokal boleh otomatis, push-nya yang nanya)
-- Deploy, migrasi database, hapus data
+- Push/merge ke branch live, deploy
+- Migrasi ke database asli, hapus data, sentuh data asli (kandidat/karyawan)
 - Nyentuh file di luar yang udah disebutin di rencana
 - Menambahkan dependency/library baru
 [ISI DI SINI — tambahan spesifik project ini]

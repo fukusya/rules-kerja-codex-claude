@@ -12,6 +12,12 @@
 - **Langkah selanjutnya kalau lanjut lagi:** [ISI]
 - **Terakhir diupdate:** [tanggal]
 
+## Pertanyaan yang Nunggu Thisya
+
+> Diisi AI kalau ketemu hal yang harus Thisya putusin (aturan global 3.6). Hapus kalau udah dijawab.
+
+- [ISI]
+
 ## Keputusan yang Udah Final (jangan didebat ulang tanpa alasan baru)
 
 > Format: [Keputusan] — [alasan singkat] — [tanggal]

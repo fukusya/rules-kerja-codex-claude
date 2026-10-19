@@ -38,6 +38,13 @@ mkdir -p ~/.codex
 cp global/CLAUDE.md ~/.codex/AGENTS.md
 ```
 
+Biar Claude & Codex bisa ngobrol langsung (tanpa copas lewat kamu), pasang versi terminal keduanya, terus login sekali:
+
+```bash
+npm install -g @openai/codex @anthropic-ai/claude-code
+claude /login
+```
+
 > Pindah/ganti komputer? Ulangi langkah 1 ini aja — file per-project udah ikut ke-clone bareng repo project-nya.
 
 ### 2. Pasang ke tiap project (ulangi buat OKR, ATS, Siklus Kulit, Time Management, WhatsApp extension)
