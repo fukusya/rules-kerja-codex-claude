@@ -103,12 +103,16 @@ Indikasi macet: bolak-balik solusi yang sama, atau ~30 menit di 1 masalah tanpa 
 ### 3.7 — Progres harus bisa dicek, di 1 tempat, dan jelas siapa yang ngerjain.
 - **Semua bukti & status masuk website report project** (link, screenshot, status) — Thisya cukup buka 1 tempat. Bukan cuma "lagi ngerjain X" di chat.
 - **Tiap perubahan dicatat siapa yang ngubah** di changelog/log project. Format: `tanggal · Claude/Codex/Thisya · apa yang berubah · bukti`. Contoh: `19 Okt · Codex · Cek rencana modul 3, nemu 1 celah · bukti: catatan review`. Tiap kali Claude nanya Codex (atau sebaliknya), pertanyaan + jawabannya juga dicatat.
-- **Scorecard otomatis di akhir tiap jawaban kerja** (Claude & Codex, tanpa diminta):
-  - Bikin rencana dulu sebelum kerja? Ya / Tidak / Ga relevan
-  - [Codex] Yang direview rencana atau hasil jadi?
-  - Ada klaim "selesai" tanpa bukti dicoba langsung? Ya (jelasin) / Tidak
-  - Sempat macet >30 menit? Ya (jelasin) / Tidak
-  - HANDOFF udah diupdate? Ya / Tidak
+- **Scorecard otomatis di akhir tiap jawaban kerja** (Claude & Codex, tanpa diminta). Isinya hasil & efektivitas, BUKAN checklist patuh aturan. Format:
+
+  > **Skor sesi: X/10** (seberapa efektif sesi ini buat ngejar target)
+  > 📈 **Progres total:** Modul X dari Y · **NN% total project** (naik dari NN% sebelumnya). Persen = dari SELURUH project, bukan dari modul yang lagi dikerjain. Dihitung dari daftar hasil di PLAN/status.json project (bobot sama per hasil), jadi angkanya konsisten tiap sesi.
+  > 🔍 **Bukti:** ada / ga ada · udah masuk website report? Ya (link) / Belum
+  > ⚡ **Efektivitas:** udah optimal belum? Ada waktu kebuang (macet, revisi bolak-balik, nunggu)? Berapa lama & kenapa.
+  > 🗂️ **Yang diupdate:** CHANGELOG / HANDOFF / file .md lain / website report — sebut mana yang udah, mana yang belum.
+  > 🙋 **Beban ke Thisya:** NN% (berapa bagian dari langkah sesi ini yang butuh Thisya turun tangan — jawab, copas, ngecek). Target sekecil mungkin.
+  > 🔋 **Limit:** masih aman / mulai mepet / hampir habis (panjang sesi & kuota). Kalau ga bisa tau pasti, tulis perkiraan + bilang itu perkiraan. Mepet → update HANDOFF dulu sebelum lanjut.
+  > ⏳ **Nunggu Thisya:** keputusan/pengecekan yang butuh dia sekarang (+ link). Kalau ga ada, tulis "ga ada".
 
 ### 3.8 — File catatan: update yang udah ada, jangan bikin baru.
 - **File standar tiap project:** `AGENTS.md` (+ `CLAUDE.md` isi `@AGENTS.md`), `HANDOFF_CONTEXT.md` (**maks 1 layar** — kepanjangan = ringkas ulang, bukan ditambahin), `CHANGELOG.md`. Kalau project besar: `DECISIONS.md` dan `PLAN.md`.
