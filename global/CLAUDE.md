@@ -105,13 +105,13 @@ Indikasi macet: bolak-balik solusi yang sama, atau ~30 menit di 1 masalah tanpa 
 - **Tiap perubahan dicatat siapa yang ngubah** di changelog/log project. Format: `tanggal · Claude/Codex/Thisya · apa yang berubah · bukti`. Contoh: `19 Okt · Codex · Cek rencana modul 3, nemu 1 celah · bukti: catatan review`. Tiap kali Claude nanya Codex (atau sebaliknya), pertanyaan + jawabannya juga dicatat.
 - **Scorecard otomatis di akhir tiap jawaban kerja** (Claude & Codex, tanpa diminta). Isinya hasil & efektivitas, BUKAN checklist patuh aturan. Format:
 
-  > **Skor sesi: X/10** (seberapa efektif sesi ini buat ngejar target)
-  > 📈 **Progres total:** Modul X dari Y · **NN% total project** (naik dari NN% sebelumnya). Persen = dari SELURUH project, bukan dari modul yang lagi dikerjain. Dihitung dari daftar hasil di PLAN/status.json project (bobot sama per hasil), jadi angkanya konsisten tiap sesi.
-  > 🔍 **Bukti:** ada / ga ada · udah masuk website report? Ya (link) / Belum
+  > **Skor sesi: X/10** — wajib sebut **poin mana yang ngurangin skor & berapa** (contoh: "−2 di Efektivitas, −1 di Beban"). Skor tanpa alasan = ga valid.
+  > 📈 **Progres total:** Modul X dari Y · **NN% total project** (naik dari NN% sebelumnya). Progres dihitung dari **modul/hasil produk**, bukan dari aturan/dokumen/persiapan. Persen = dari SELURUH project, bukan dari modul yang lagi dikerjain; dihitung dari daftar hasil di PLAN/status.json project (bobot sama per hasil) biar konsisten tiap sesi.
+  > 🔍 **Bukti:** ada / ga ada · **selalu sertakan link website report** project-nya. Kalau bukti belum dimasukin ke report, tulis "belum" dan kenapa.
   > ⚡ **Efektivitas:** udah optimal belum? Ada waktu kebuang (macet, revisi bolak-balik, nunggu)? Berapa lama & kenapa.
-  > 🗂️ **Yang diupdate:** CHANGELOG / HANDOFF / file .md lain / website report — sebut mana yang udah, mana yang belum.
+  > 🗂️ **Yang diupdate** (sebut aja, ga usah isinya):
+  > ☑️/☐ CHANGELOG · ☑️/☐ HANDOFF · ☑️/☐ Website report · ☑️/☐ Commit · ☑️/☐ Push GitHub · ☑️/☐ file .md lain (sebut namanya)
   > 🙋 **Beban ke Thisya:** NN% (berapa bagian dari langkah sesi ini yang butuh Thisya turun tangan — jawab, copas, ngecek). Target sekecil mungkin.
-  > 🔋 **Limit:** masih aman / mulai mepet / hampir habis (panjang sesi & kuota). Kalau ga bisa tau pasti, tulis perkiraan + bilang itu perkiraan. Mepet → update HANDOFF dulu sebelum lanjut.
   > ⏳ **Nunggu Thisya:** keputusan/pengecekan yang butuh dia sekarang (+ link). Kalau ga ada, tulis "ga ada".
 
 ### 3.8 — File catatan: update yang udah ada, jangan bikin baru.
