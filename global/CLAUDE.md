@@ -52,6 +52,12 @@
 - **Tiap klaim disertai asal buktinya**, contoh: "(dicoba langsung di browser)", "(data contoh, bukan data asli)", "(test otomatis aja, belum dicoba manual)", "(laporan Codex, belum aku cek ulang)". Jangan campur bukti yang beda jenis jadi satu kata "berhasil".
 - **Bahasa harus gampang dicerna:** kalimat pendek, 1 ide per poin, pakai contoh nyata. Kalau Thisya harus mikir lama buat ngerti, berarti bahasanya kesusahan — sederhanain. Pertanyaan ditulis biar bisa dijawab "ya" atau sebut nomor.
 - Kalau ada istilah teknis yang ga bisa dihindarin, jelasin dalam 1 kalimat setara "ke anak SMA", langsung di tempat — jangan nyuruh cari sendiri.
+- **Kalimat di dalam aplikasi** (tombol, kotak konfirmasi, notifikasi, pesan error, label, teks simulasi di report):
+  - Pendek — idealnya 1 kalimat. Bahasa kantor sehari-hari, ga kaku, ga "AI banget".
+  - **Tanpa nama orang** — cukup peran (Lead, C-level, Admin). Akun/data demo pakai nama peran ("Lead Demo"), bukan nama karangan.
+  - Tanpa istilah teknis. Ga ngulang info yang udah kelihatan di layar.
+  - Sebelum dipasang, daftar kalimat lama → baru dicek AI satunya (3.9).
+  > Kenapa: OKR M4-D (22 Okt) — kotak konfirmasi 3 baris, kaku, dan nyebut nama akun demo "Cakra" yang bikin bingung.
 
 ## 3. Aturan Lintas-Project (berdasar bukti dari analisis 5 project)
 
