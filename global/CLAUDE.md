@@ -85,6 +85,11 @@ Dilarang bilang sesuatu "selesai"/"berhasil" hanya karena kode ga error atau tes
 - **Claude & Codex ga boleh saling percaya begitu aja.** "Approved"/"selesai" dari AI lain BUKAN bukti — tandai sebagai "(laporan Codex/Claude, belum dicek ulang)" sampai dicek sendiri.
 > Kenapa: di 4 dari 5 project, klaim "test pass"/"selesai" ternyata nyembunyiin bug — termasuk 1 kasus test yang JUSTRU mengesahkan bug sebagai perilaku benar (Time Management, bug P0 data-safety).
 
+### 3.2b — Contoh & data demo tidak boleh diambil dari data kerja asli.
+- Contoh di aplikasi, template, panduan, dan data demo wajib karangan netral: judul, angka, dan nama perannya bukan salinan dokumen kerja, walau cuma disamarkan sedikit.
+- Dokumen asli dari Thisya boleh dipakai buat memahami cara kerja, bukan buat isi yang ditampilkan.
+> Kenapa: OKR 5 Nov — contoh pengisian distribusi memakai isi dan angka OKR HR yang rahasia, sempat tayang di website.
+
 ### 3.3 — Jaga scope HASIL, bukan daftar file.
 - **Boleh langsung, cukup dicatat di laporan:** file teknis apa pun yang perlu disentuh buat nyelesaiin kerjaan yang udah disepakati.
 - **Wajib izin dulu:** apa pun yang sifatnya *hasil baru* yang ga diminta — fitur tambahan, prototype, dokumen baru, redesign, atau ganti tampilan di luar yang dibahas.
